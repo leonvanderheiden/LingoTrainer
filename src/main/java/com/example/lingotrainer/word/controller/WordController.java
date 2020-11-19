@@ -1,6 +1,6 @@
-package com.example.lingotrainer.Word.controller;
+package com.example.lingotrainer.word.controller;
 
-import com.example.lingotrainer.Word.service.WordServiceInterace;
+import com.example.lingotrainer.word.service.WordServiceInterace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

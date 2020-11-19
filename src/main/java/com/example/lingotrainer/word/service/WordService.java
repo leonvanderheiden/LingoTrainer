@@ -1,4 +1,4 @@
-package com.example.lingotrainer.Word.service;
+package com.example.lingotrainer.word.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

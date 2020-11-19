@@ -1,4 +1,4 @@
-package com.example.lingotrainer.Word.service;
+package com.example.lingotrainer.word.service;
 
 import java.io.FileNotFoundException;
 import java.util.List;
