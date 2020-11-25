@@ -19,23 +19,11 @@ public class WordService implements WordServiceInterace {
 
     @Override
     public List<String> getWords(long length) throws FileNotFoundException {
-        return filterWords(length);
+        return filterWords();
     }
 
     //Methode om de ongeldige worden uit de textfile te filteren. Ook worden gelijk alle woorden geselecteerd van een bepaalde lengte
-    public List<String> filterWords(long length) throws FileNotFoundException {
-        List<String> words = new ArrayList<>();
-
-        File allWords = new File("C:\\Users\\Leon\\Documents\\lingotrainer\\src\\main\\resources\\basiswoorden-gekeurd.txt");
-        Scanner wordReader = new Scanner(allWords);
-        while (wordReader.hasNextLine()) {
-            String word = wordReader.nextLine();
-            //Alleen non-capital woorden toegestaan van een bepaalde lengte
-            if (word.matches("[a-z]{" + length + "}"))
-            {
-                words.add(word);
-            }
-        }
-        return words;
+    public List<String> filterWords() throws FileNotFoundException {
+        return null;
     }
 }
