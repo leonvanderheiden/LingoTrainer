@@ -19,6 +19,4 @@ public class LingotrainerApplication {
 		SpringApplication.run(LingotrainerApplication.class, args);
 		filterWords.getWords();
 	}
-
-
 }

@@ -1,17 +1,22 @@
-package com.example.lingotrainer.word;
+package com.example.lingotrainer.score;
 
 import com.example.lingotrainer.game.Game;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "word")
-public class Word {
+@Table(name = "score")
+public class Score {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "word")
+    @OneToOne(mappedBy = "score")
     private Game game;
+
+    @NotNull
+    private long score;
+
 }
