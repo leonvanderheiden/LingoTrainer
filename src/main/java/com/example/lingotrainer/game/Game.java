@@ -18,9 +18,6 @@ public class Game {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "game")
-    private List<Round> rounds;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "score_id", referencedColumnName = "id", nullable = true)
     private Score score;

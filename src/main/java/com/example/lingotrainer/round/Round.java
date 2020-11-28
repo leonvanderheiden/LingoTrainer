@@ -2,6 +2,7 @@ package com.example.lingotrainer.round;
 
 
 import com.example.lingotrainer.game.Game;
+import com.sun.istack.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -16,9 +17,22 @@ public class Round {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
-    @JoinColumn(name = "game_id", referencedColumnName = "id", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Game game;
+    @NotNull
+    String roundType;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRoundType() {
+        return roundType;
+    }
+
+    public void setRoundType(String roundType) {
+        this.roundType = roundType;
+    }
 }
