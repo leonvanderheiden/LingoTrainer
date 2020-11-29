@@ -34,7 +34,7 @@ public class RoundController {
     }
 
     @DeleteMapping("/round/{roundid}")
-    public Boolean deleteRoute(@PathVariable Long roundid) {
+    public Boolean deleteRound(@PathVariable Long roundid) {
         return roundService.deleteById(roundid);
     }
 }

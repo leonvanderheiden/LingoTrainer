@@ -12,6 +12,6 @@ public class Word {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "word")
-    private Game game;
+    /*@OneToOne(mappedBy = "word")
+    private Game game;*/
 }
