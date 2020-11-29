@@ -20,4 +20,24 @@ public class RoundService implements RoundServiceInterface {
     public Round getRound(long id) {
         return roundRepository.findByid(id);
     }
+
+    @Override
+    public Round save(Round round) {
+
+        return roundRepository.save(round);
+    }
+
+    @Override
+    public Round updateById(Long roundid, Round round) {
+        Round r = roundRepository.findDistinctById(roundid);
+
+        r.setRoundType(round.getRoundType());
+
+        return roundRepository.save(r);
+    }
+
+    @Override
+    public Boolean deleteById(Long roundid) {
+        return roundRepository.deleteDistinctById(roundid);
+    }
 }

@@ -1,11 +1,10 @@
 package com.example.lingotrainer.round.controller;
 
 import com.example.lingotrainer.round.Round;
+import com.example.lingotrainer.round.service.RoundService;
 import com.example.lingotrainer.round.service.RoundServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -19,5 +18,23 @@ public class RoundController {
     @GetMapping("/round/{id}")
     public Round getWords(@PathVariable Long id) {
         return roundService.getRound(id);
+    }
+
+    @PostMapping(
+            value = "/round",
+            consumes = "application/json",
+            produces = "application/json")
+    public Round saveRound(@RequestBody Round round) {
+        return roundService.save(round);
+    }
+
+    @PutMapping("/round/{roundid}")
+    public Round updateRound(@PathVariable Long roundid, @RequestBody Round round) {
+        return roundService.updateById(roundid, round);
+    }
+
+    @DeleteMapping("/round/{roundid}")
+    public Boolean deleteRoute(@PathVariable Long roundid) {
+        return roundService.deleteById(roundid);
     }
 }
