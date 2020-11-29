@@ -16,7 +16,7 @@ public class RoundController {
     public RoundServiceInterface roundService;
 
     @GetMapping("/round/{id}")
-    public Round getWords(@PathVariable Long id) {
+    public Round getRound(@PathVariable Long id) {
         return roundService.getRound(id);
     }
 
