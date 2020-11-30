@@ -1,6 +1,6 @@
 package com.example.lingotrainer.filterWords;
 
-import com.example.lingotrainer.filterwords.FilterWords;
+import com.example.lingotrainer.filterwords.FilterWordsProcessor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,7 +16,7 @@ public class FilterWordsTest {
     @MethodSource("wordExamples")
     @DisplayName("Check if word is vallid")
     void filterWords(String word, boolean expectedResult) {
-        var filterWords = new FilterWords();
+        var filterWords = new FilterWordsProcessor();
 
         var expectedWord = filterWords.isWordValid(word);
 

@@ -1,12 +1,27 @@
 package com.example.lingotrainer.filterwords;
 
+import com.example.lingotrainer.filterwords.domain.WordFilter;
+import com.example.lingotrainer.filterwords.domain.WordReader;
+import com.example.lingotrainer.filterwords.domain.WordWriter;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FilterWords {
+@Service
+public class FilterWordsProcessor {
+
+    private WordReader wordReader;
+    private WordFilter wordFilter;
+    private WordWriter wordWriter;
+
+    
+
+
+
     public List<String> getWords() throws FileNotFoundException {
         List<String> words = new ArrayList<>();
 
