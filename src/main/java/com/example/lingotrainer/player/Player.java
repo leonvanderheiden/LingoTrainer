@@ -20,8 +20,8 @@ public class Player {
     //@JoinColumn(name = "highscore_id", referencedColumnName = "id", nullable = true)
     //private Highscore highscore;
 
-    /*@OneToMany(mappedBy = "player")
-    private List<Game> games;*/
+    @OneToMany(mappedBy = "player")
+    private List<Game> games;
 
     @NotNull
     private String name;
@@ -58,4 +58,6 @@ public class Player {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

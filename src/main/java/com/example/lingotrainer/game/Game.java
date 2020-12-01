@@ -27,6 +27,11 @@ public class Game {
     @JoinColumn(name = "round_id", referencedColumnName = "id", nullable = true)
     private List<Round> rounds = new ArrayList<>();
 
+    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
+    @JoinColumn(name = "player_id", referencedColumnName = "id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Player player;
+
     public Long getId() {
         return id;
     }
@@ -53,12 +58,6 @@ public class Game {
 
     /*@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "word_id", referencedColumnName = "id", nullable = true)
-    private Word word;
+    private Word word;*/
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
-    @JoinColumn(name = "player_id", referencedColumnName = "id", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Player player;
-
-    */
 }
