@@ -1,4 +1,4 @@
-package com.example.lingotrainer.filterwords.data;
+package com.example.lingotrainer.filterwords.domain;
 
 import com.example.lingotrainer.filterwords.domain.WordWriter;
 import org.springframework.stereotype.Service;

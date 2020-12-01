@@ -12,6 +12,6 @@ public class Highscore {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "highscore")
-    private Player player;
+    //@OneToOne(mappedBy = "highscore")
+    //private Player player;
 }

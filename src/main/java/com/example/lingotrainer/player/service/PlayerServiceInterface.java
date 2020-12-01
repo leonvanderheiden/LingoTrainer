@@ -5,6 +5,11 @@ import com.example.lingotrainer.player.Player;
 import java.util.List;
 
 public interface PlayerServiceInterface {
-    List<Player> getPlayers();
+    Player findById(Long id);
+
     Player save(Player player);
+
+    Player update(Long playerid, Player player);
+
+    Boolean deleteById(Long playerid);
 }

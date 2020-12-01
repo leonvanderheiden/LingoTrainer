@@ -14,7 +14,7 @@ public class ScoreService implements ScoreServiceInterface {
 
     @Override
     public Score getScore(long id) {
-        return scoreRepository.findByid(id);
+        return scoreRepository.findDistinctById(id);
     }
 
     @Override

@@ -16,9 +16,9 @@ public class Player {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "highscore_id", referencedColumnName = "id", nullable = true)
-    private Highscore highscore;
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "highscore_id", referencedColumnName = "id", nullable = true)
+    //private Highscore highscore;
 
     /*@OneToMany(mappedBy = "player")
     private List<Game> games;*/
@@ -26,10 +26,21 @@ public class Player {
     @NotNull
     private String name;
 
+    @NotNull
+    private String password;
+
     public Player() {}
 
     public Player(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -38,5 +49,13 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.transaction.Transactional;
 
 public interface GameRepository extends JpaRepository<Game, Long> {
-    Game findByid(Long id);
 
     @Transactional
     Boolean deleteDistinctById(Long gameid);

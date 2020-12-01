@@ -14,7 +14,7 @@ public class GameService implements GameServiceInterface {
 
     @Override
     public Game getGame(Long id) {
-        return gameRepository.findByid(id);
+        return gameRepository.findDistinctById(id);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class RoundService implements RoundServiceInterface {
 
     @Override
     public Round getRound(long id) {
-        return roundRepository.findByid(id);
+        return roundRepository.findDistinctById(id);
     }
 
     @Override
