@@ -17,7 +17,7 @@ public class FileWordReader implements WordReader {
         List<String> words = new ArrayList<>();
 
         //Haalt alle woorden op uit de txt file
-        File allWords = new File("C:\\Users\\Leon\\Documents\\lingotrainer\\src\\main\\resources\\basiswoorden-gekeurd.txt");
+        File allWords = new File("C:\\Users\\leonv\\Documents\\JavaProjects\\LingoTrainer\\src\\main\\resources\\basiswoorden-gekeurd.txt");
         Scanner wordReader = new Scanner(allWords);
         while (wordReader.hasNextLine()) {
             String word = wordReader.nextLine();
