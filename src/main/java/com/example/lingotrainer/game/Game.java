@@ -27,7 +27,7 @@ public class Game {
     @JoinColumn(name = "round_id", referencedColumnName = "id", nullable = true)
     private List<Round> rounds = new ArrayList<>();
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade=CascadeType.MERGE)
     @JoinColumn(name = "player_id", referencedColumnName = "id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Player player;

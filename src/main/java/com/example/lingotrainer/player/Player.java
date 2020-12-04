@@ -2,10 +2,12 @@ package com.example.lingotrainer.player;
 
 import com.example.lingotrainer.game.Game;
 import com.example.lingotrainer.highscore.Highscore;
+import com.example.lingotrainer.round.Round;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,14 +22,18 @@ public class Player {
     //@JoinColumn(name = "highscore_id", referencedColumnName = "id", nullable = true)
     //private Highscore highscore;
 
-    @OneToMany(mappedBy = "player")
-    private List<Game> games;
+    //@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    //@JoinColumn(name = "game_id", referencedColumnName = "id", nullable = true)
+    //private List<Game> games = new ArrayList<>();
 
     @NotNull
     private String name;
 
     @NotNull
     private String password;
+
+    @OneToMany(mappedBy = "player")
+    private List<Game> games;
 
     public Player() {}
 
@@ -59,5 +65,11 @@ public class Player {
         this.password = password;
     }
 
+    /*public List<Game> getGames() {
+        return games;
+    }
 
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }*/
 }
