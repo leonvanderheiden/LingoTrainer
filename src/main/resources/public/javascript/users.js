@@ -1,6 +1,12 @@
-var player = new Object();
+var username;
+var id;
+
+function getUser() {
+    alert(username + " " + id);
+}
 
 function myFunction() {
+    var player = new Object();
     player.name = document.forms["login"]["username"].value
     player.password = document.forms["login"]["password"].value
 
@@ -15,6 +21,9 @@ function myFunction() {
         .then(response => response.json())
         .then(function(playerInfo) {
             console.log(playerInfo);
+            username = playerInfo.name;
+            id = playerInfo.id;
+            alert("test");
         })
 
 
