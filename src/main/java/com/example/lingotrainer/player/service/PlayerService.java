@@ -31,6 +31,28 @@ public class PlayerService implements PlayerServiceInterface {
     }
 
     @Override
+    public Player findByNameAndPassword(Player player) {
+
+        Player p = null;
+
+        //Controleerd of meegegeven username in db staat
+        if (playerRepository.existsByName(player.getName())) {
+            //Haalt speler uit de database d.m.v. meegegeven naam
+            Player dbUser = playerRepository.findByNameIs(player.getName());
+
+            //Controleerd of meegegeven wachtwoord overeen komt met het wachtwoord in de database
+            if (dbUser.getPassword().equals(player.getPassword())) {
+                p = dbUser;
+            }
+        }
+        else {
+            //Als dat niet het geval is wordt er een nieuwe user aangemaakt
+            p = playerRepository.save(player);
+        }
+        return p;
+    }
+
+    @Override
     public Player save(Player player) {
         return playerRepository.save(player);
     }

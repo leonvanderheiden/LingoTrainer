@@ -38,19 +38,13 @@ public class PlayerController {
         return modelMapper.map(playerService.save(player), PlayerDto.class);
     }
 
-    /*@GetMapping("/player/{id}")
-    public Player getPlayerById(@PathVariable Long id) {
-        return playerService.findById(id);
-    }
-
     @PostMapping(
-            value = "/player",
+            value = "/login",
             consumes = "application/json",
             produces = "application/json")
-    public Player savePlayer(@RequestBody Player player) {
-        System.out.println(player.getGames().toString());
-        return playerService.save(player);
-    }*/
+    public Player login(@RequestBody Player player) {
+        return playerService.findByNameAndPassword(player);
+    }
 
     @PutMapping("/player/{playerid}")
     public PlayerDto updatePlayer(@PathVariable Long playerid, @RequestBody Player player) {

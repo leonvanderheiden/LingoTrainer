@@ -9,6 +9,8 @@ public interface PlayerServiceInterface {
 
     Player findByName(String name);
 
+    Player findByNameAndPassword(Player player);
+
     Player save(Player player);
 
     Player update(Long playerid, Player player);
