@@ -25,7 +25,7 @@ public class PlayerController {
         return modelMapper.map(playerService.findById(id), PlayerDto.class);
     }
 
-    @GetMapping("/playername/{name}")
+    @GetMapping("/user/{name}")
     public PlayerDto getPlayerById(@PathVariable String name) {
         return modelMapper.map(playerService.findByName(name), PlayerDto.class);
     }
