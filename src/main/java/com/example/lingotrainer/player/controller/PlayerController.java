@@ -42,8 +42,8 @@ public class PlayerController {
             value = "/login",
             consumes = "application/json",
             produces = "application/json")
-    public Player login(@RequestBody Player player) {
-        return playerService.findByNameAndPassword(player);
+    public PlayerDto login(@RequestBody Player player) {
+        return modelMapper.map(playerService.findByNameAndPassword(player), PlayerDto.class);
     }
 
     @PutMapping("/player/{playerid}")
