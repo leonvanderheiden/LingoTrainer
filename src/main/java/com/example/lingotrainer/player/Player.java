@@ -4,6 +4,7 @@ import com.example.lingotrainer.game.Game;
 import com.example.lingotrainer.highscore.Highscore;
 import com.example.lingotrainer.round.Round;
 import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
@@ -65,11 +66,11 @@ public class Player {
         this.password = password;
     }
 
-    /*public List<Game> getGames() {
+    public List<Game> getGames() {
         return games;
     }
 
     public void setGames(List<Game> games) {
         this.games = games;
-    }*/
+    }
 }

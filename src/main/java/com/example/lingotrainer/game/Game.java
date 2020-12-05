@@ -24,13 +24,17 @@ public class Game {
     private Score score;
 
     @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
-    @JoinColumn(name = "round_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "game_id", referencedColumnName = "id", nullable = true)
     private List<Round> rounds = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade=CascadeType.MERGE)
-    @JoinColumn(name = "player_id", referencedColumnName = "id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade=CascadeType.MERGE)
+    @JoinColumn(name = "player_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Player player;
+
+    /*@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "word_id", referencedColumnName = "id", nullable = true)
+    private Word word;*/
 
     public Long getId() {
         return id;
@@ -56,8 +60,17 @@ public class Game {
         this.rounds = rounds;
     }
 
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "word_id", referencedColumnName = "id", nullable = true)
-    private Word word;*/
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", score=" + score +
+                ", rounds=" + rounds +
+                ", player=" + player +
+                '}';
+    }
 }
