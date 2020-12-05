@@ -5,6 +5,7 @@ import com.example.lingotrainer.highscore.Highscore;
 import com.example.lingotrainer.round.Round;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
@@ -12,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "player")
+@Table(name = "player", uniqueConstraints=
+@UniqueConstraint(columnNames = {"name"}))
 public class Player {
 
     @Id
@@ -23,11 +25,8 @@ public class Player {
     //@JoinColumn(name = "highscore_id", referencedColumnName = "id", nullable = true)
     //private Highscore highscore;
 
-    //@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
-    //@JoinColumn(name = "game_id", referencedColumnName = "id", nullable = true)
-    //private List<Game> games = new ArrayList<>();
-
     @NotNull
+    @Column(unique = true)
     private String name;
 
     @NotNull

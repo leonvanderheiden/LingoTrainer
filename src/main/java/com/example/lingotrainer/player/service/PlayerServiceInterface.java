@@ -7,6 +7,8 @@ import java.util.List;
 public interface PlayerServiceInterface {
     Player findById(Long id);
 
+    Player findByName(String name);
+
     Player save(Player player);
 
     Player update(Long playerid, Player player);

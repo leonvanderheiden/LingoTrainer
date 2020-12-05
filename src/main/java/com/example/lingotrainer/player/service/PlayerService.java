@@ -25,6 +25,12 @@ public class PlayerService implements PlayerServiceInterface {
     }
 
     @Override
+    public Player findByName(String name) {
+        System.out.println(playerRepository.findByNameIs(name) + " repository");
+        return playerRepository.findByNameIs(name);
+    }
+
+    @Override
     public Player save(Player player) {
         return playerRepository.save(player);
     }

@@ -10,5 +10,8 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     Player findDistinctById(Long playerid);
 
     @Transactional
+    Player findByNameIs(String name);
+
+    @Transactional
     Boolean deleteDistinctById(Long playerid);
 }
