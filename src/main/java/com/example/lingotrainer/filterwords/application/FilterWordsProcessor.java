@@ -37,4 +37,9 @@ public class FilterWordsProcessor {
         List<String> validWords = wordFilter.getFilteredWords(allWords);
         wordWriter.writeWords(validWords);
     }
+
+    public List<String> processWordsSnel() throws FileNotFoundException {
+        List<String> allWords = wordReader.getWordsFromFile();
+        return wordFilter.getFilteredWords(allWords);
+    }
 }
