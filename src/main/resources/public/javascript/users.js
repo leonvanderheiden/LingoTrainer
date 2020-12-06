@@ -19,7 +19,7 @@ function loginFunction() {
         .then(function(playerInfo) {
             sessionStorage.setItem("loggedUser", JSON.stringify(playerInfo));
             console.log(playerInfo);
-            //window.location.href = "game.html";
+            window.location.href = "menu.html";
         })
 
 

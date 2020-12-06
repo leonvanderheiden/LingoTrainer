@@ -32,17 +32,11 @@ public class Game {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Player player;
 
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "word_id", referencedColumnName = "id", nullable = true)
-    private Word word;*/
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public Score getScore() {
         return score;
