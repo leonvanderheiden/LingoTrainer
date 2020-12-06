@@ -9,6 +9,7 @@ const fetchScore = async args => {
     const body = await res.json();
     return body;
 };
+
 const fetchRound = async args => {
     const res = await fetch(`/round`, {
         method: "POST",
@@ -40,7 +41,6 @@ function createRound(type) {
 async function newGame() {
     var game = new Object();
     game.score = await fetchScore();
-
     game.rounds = new Array();
     game.rounds.push(await fetchRound());
 
