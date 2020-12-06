@@ -27,6 +27,14 @@ public class GameController {
         return gameService.save(game);
     }
 
+    @PostMapping(
+            value = "/game/{playerid}",
+            consumes = "application/json",
+            produces = "application/json")
+    public Game newGame(@PathVariable Long playerid,@RequestBody Game game) {
+        return gameService.saveGameToPlayer(playerid, game);
+    }
+
     @PutMapping("/game/{gameid}")
     public Game updateGame(@PathVariable Long gameid, @RequestBody Game game) {
         return gameService.updateById(gameid, game);

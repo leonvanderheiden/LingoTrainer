@@ -2,11 +2,20 @@ package com.example.lingotrainer.game.service;
 
 import com.example.lingotrainer.game.Game;
 import com.example.lingotrainer.game.repository.GameRepository;
+import com.example.lingotrainer.player.Player;
+import com.example.lingotrainer.player.repository.PlayerRepository;
+import com.example.lingotrainer.player.service.PlayerServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameService implements GameServiceInterface {
+
+    @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private PlayerServiceInterface playerService;
 
     public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
@@ -19,6 +28,14 @@ public class GameService implements GameServiceInterface {
 
     @Override
     public Game save(Game game) {
+        return gameRepository.save(game);
+    }
+
+    @Override
+    public Game saveGameToPlayer(Long id, Game game) {
+        Player player = playerService.findById(id);
+        game.setPlayer(player);
+
         return gameRepository.save(game);
     }
 

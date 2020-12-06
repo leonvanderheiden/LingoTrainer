@@ -3,6 +3,7 @@ package com.example.lingotrainer.player.service;
 import com.example.lingotrainer.player.Player;
 import com.example.lingotrainer.player.repository.PlayerRepository;
 import com.example.lingotrainer.score.Score;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 public class PlayerService implements PlayerServiceInterface {
 
+    @Autowired
     private PlayerRepository playerRepository;
 
     public PlayerService(PlayerRepository playerRepository) {
