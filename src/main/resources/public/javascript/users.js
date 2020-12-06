@@ -1,14 +1,11 @@
-var username;
-var id;
-
 function getUser() {
-    alert(username + " " + id);
+    console.log(JSON.parse(sessionStorage.getItem("loggedUser")));
 }
 
-function myFunction() {
+function loginFunction() {
     var player = new Object();
-    player.name = document.forms["login"]["username"].value
-    player.password = document.forms["login"]["password"].value
+    player.name = document.getElementById("username").value;
+    player.password = document.getElementById("password").value;
 
     var playerJsonString = JSON.stringify(player);
 
@@ -20,10 +17,9 @@ function myFunction() {
         }, body: playerJsonString })
         .then(response => response.json())
         .then(function(playerInfo) {
+            sessionStorage.setItem("loggedUser", JSON.stringify(playerInfo));
             console.log(playerInfo);
-            username = playerInfo.name;
-            id = playerInfo.id;
-            alert("test");
+            //window.location.href = "game.html";
         })
 
 
