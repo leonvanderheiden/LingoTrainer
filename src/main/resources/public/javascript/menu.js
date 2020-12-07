@@ -13,7 +13,7 @@ const fetchScore = async args => {
 };
 
 const fetchRound = async args => {
-    const res = await fetch(`/round`, {
+    const res = await fetch(`/newround`, {
         method: "POST",
         body: JSON.stringify({ roundType: "5 letterwoord" }),
         headers: {
@@ -23,20 +23,6 @@ const fetchRound = async args => {
     const body = await res.json();
     return body;
 };
-
-//Misschien voor later
-function loadGames() {
-    fetch("player/" + user.id)
-        .then(response => response.json())
-        .then(function(response) {
-            for (var i = 0; i < response.games.length; i++) {
-                var rounds = response.games[i].rounds.length;
-                if (rounds < 5) {
-
-                }
-            }
-        });
-}
 
 async function newGame() {
     var game = new Object();
@@ -51,7 +37,21 @@ async function newGame() {
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json',}, body: gameJsonString })
         .then(response => response.json())
         .then(function(gameInfo) {
-            console.log(gameInfo);
+            sessionStorage.setItem("game", gameInfo.id);
+            window.location.href = "game.html";
         })
 
 }
+//Misschien voor later
+/*function loadGames() {
+    fetch("player/" + user.id)
+        .then(response => response.json())
+        .then(function(response) {
+            for (var i = 0; i < response.games.length; i++) {
+                var rounds = response.games[i].rounds.length;
+                if (rounds < 5) {
+
+                }
+            }
+        });
+}*/

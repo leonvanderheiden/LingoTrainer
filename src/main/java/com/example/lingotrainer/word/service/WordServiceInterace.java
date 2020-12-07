@@ -8,5 +8,7 @@ import java.util.List;
 public interface WordServiceInterace {
 
     Word save(Word word);
+
+    Word getRandomWordByLength(Long length);
 }
 

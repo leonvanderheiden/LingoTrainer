@@ -3,6 +3,7 @@ package com.example.lingotrainer.round.controller;
 import com.example.lingotrainer.round.Round;
 import com.example.lingotrainer.round.service.RoundService;
 import com.example.lingotrainer.round.service.RoundServiceInterface;
+import com.example.lingotrainer.word.service.WordServiceInterace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,9 @@ public class RoundController {
     @Autowired
     public RoundServiceInterface roundService;
 
+    @Autowired
+    public WordServiceInterace wordService;
+
     @GetMapping("/round/{id}")
     public Round getRound(@PathVariable Long id) {
         return roundService.getRound(id);
@@ -25,6 +29,15 @@ public class RoundController {
             consumes = "application/json",
             produces = "application/json")
     public Round saveRound(@RequestBody Round round) {
+        return roundService.save(round);
+    }
+
+    @PostMapping(
+            value = "/newround",
+            consumes = "application/json",
+            produces = "application/json")
+    public Round saveRoundWithWord(@RequestBody Round round) {
+        round.setWord(wordService.getRandomWordByLength(5L));
         return roundService.save(round);
     }
 

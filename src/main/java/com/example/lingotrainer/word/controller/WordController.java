@@ -19,6 +19,11 @@ public class WordController {
     @Autowired
     public WordServiceInterace wordsService;
 
+    @GetMapping("/getrandomword/{length}")
+    public Word getRandomWord(@PathVariable Long length) {
+        return wordsService.getRandomWordByLength(length);
+    }
+
     @GetMapping("/savewords")
     public Boolean saveWords() throws FileNotFoundException {
         FilterWordsProcessor fwp = new FilterWordsProcessor(new FileWordReader(), new LingoWordFilter(), new FileWordWriter());

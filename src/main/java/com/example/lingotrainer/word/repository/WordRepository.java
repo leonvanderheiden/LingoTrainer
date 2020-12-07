@@ -4,6 +4,7 @@ import com.example.lingotrainer.word.Word;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface WordRepository extends JpaRepository<Word, Long> {
     @Transactional
@@ -14,4 +15,7 @@ public interface WordRepository extends JpaRepository<Word, Long> {
 
     @Transactional
     Boolean existsByWord(String word);
+
+    @Transactional
+    List<Word> getAllByIdNotNull();
 }
