@@ -1,6 +1,7 @@
 package com.example.lingotrainer.word;
 
 import com.example.lingotrainer.round.Round;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "word")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Word {
 
     @Id

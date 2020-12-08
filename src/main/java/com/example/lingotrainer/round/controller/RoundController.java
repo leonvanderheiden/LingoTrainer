@@ -25,6 +25,14 @@ public class RoundController {
     }
 
     @PostMapping(
+            value = "/feedback/{attempt}",
+            consumes = "application/json",
+            produces = "application/json")
+    public String getFeedback(@PathVariable String attempt, @RequestBody Round round) {
+        return roundService.getFeedback(attempt, round);
+    }
+
+    @PostMapping(
             value = "/round",
             consumes = "application/json",
             produces = "application/json")
@@ -40,6 +48,7 @@ public class RoundController {
         round.setWord(wordService.getRandomWordByLength(5L));
         return roundService.save(round);
     }
+
 
     @PutMapping("/round/{roundid}")
     public Round updateRound(@PathVariable Long roundid, @RequestBody Round round) {
