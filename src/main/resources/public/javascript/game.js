@@ -1,6 +1,6 @@
 var gameId;
 var word;
-var attempt = 0;
+var attempt = 1;
 var round;
 
 const fetchFeedback = async args => {
@@ -16,6 +16,20 @@ const fetchFeedback = async args => {
     const body = res.text();
     return body;
 };
+
+function createGameArea() {
+    alert("wa")
+    var gameArea = document.querySelector(".gameArea")
+    for(var y = 0; y < 5; y++){
+        for(var x = 0; x < x; i++){
+            var newlabel = document.createElement("label");
+            newlabel.setAttribute("id", "attempt_" + y + "_" + x);
+            newlabel.innerHTML = "_";
+            newlabel.style.backgroundColor = "red";
+            gameArea.appendChild(newlabel);
+        }
+    }
+}
 
 function getWord()
 {
@@ -33,10 +47,22 @@ function getWord()
 function loadGame() {
     gameId = sessionStorage.getItem("game");
     sessionStorage.removeItem("game");
+    createGameArea();
     getWord();
 }
 
 async function enterWord() {
     const test = await fetchFeedback();
-    console.log(test);
+    var givenLetters = "";
+    var letters = test.split('\n');
+    for(var i = 0; i < letters.length;i++){
+        if (letters[i].includes("(correct)")) {
+            givenLetters += letters[i].charAt(0) + " ";
+        }
+        else {
+            givenLetters += "_ ";
+        }
+    }
+    attempt++;
+    document.getElementById("attempt_" + attempt).innerHTML = givenLetters;
 }
