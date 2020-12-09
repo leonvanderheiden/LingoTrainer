@@ -33,7 +33,7 @@ function createGameArea() {
 //<-- Functies voor het spelen van een game -->
 //Er wordt een nieuw woord geschreven in de game area
 function writeWord(writtenWord) {
-    for(var i = 0; i < 5; i++)
+    for(var i = 0; i < typeOfRound; i++)
     {
         var letter = writtenWord.charAt(i);
         document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letter;
@@ -69,6 +69,7 @@ async function enterWord() {
     else {
         //Leest de feedback uit een veranderd kleuren en letters waar nodig
         var letters = feedback.split('\n');
+        alert((letters.length - 1))
         for(var i = 0; i < (letters.length - 1);i++){
             document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letters[i].charAt(0);
             if (letters[i].includes("(correct)")) {

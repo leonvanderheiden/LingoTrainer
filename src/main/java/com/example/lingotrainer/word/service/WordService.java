@@ -23,7 +23,6 @@ public class WordService implements WordServiceInterace {
 
     @Override
     public Word getRandomWordByLength(Long length) {
-        System.out.println(length + " LENGTH");
         List<Word> words = new ArrayList<>();
         for (Word w : wordRepository.getAllByIdNotNull()) {
             if (w.getWord().length() == length) {
