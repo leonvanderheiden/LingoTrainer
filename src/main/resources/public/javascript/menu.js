@@ -12,18 +12,6 @@ const fetchScore = async args => {
     return body;
 };
 
-const fetchRound = async args => {
-    const res = await fetch(`/newround`, {
-        method: "POST",
-        body: JSON.stringify({ roundType: "5 letterwoord" }),
-        headers: {
-            "Accept": "application/json", "Content-Type": "application/json"
-        }
-    });
-    const body = await res.json();
-    return body;
-};
-
 async function newGame() {
     var game = new Object();
     game.score = await fetchScore();

@@ -32,7 +32,7 @@ function createGameArea() {
 
 //<-- Functies voor het spelen van een game -->
 //Er wordt een nieuw woord geschreven in de game area
-function writeWord(attempt, writtenWord) {
+function writeWord(writtenWord) {
     for(var i = 0; i < 5; i++)
     {
         var letter = writtenWord.charAt(i);
@@ -91,18 +91,16 @@ async function enterWord() {
             await startNewRound();
         }
         else {
-            writeWord(attempt, givenLetters);
+            writeWord(givenLetters);
         }
     }
 }
 
 //De game area wordt leeggehaald
 function deleteGameArea() {
-    for(var y = 0; y < 5; y++) {
-        for(var x = 0; x < 5; x++) {
-            var label = document.getElementById("attempt_" + y + "_" + x);
-            label.remove();
-        }
+    const myNode = document.getElementById("gameArea");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.lastChild);
     }
 }
 
@@ -134,30 +132,22 @@ async function startNewRound() {
             if (roundNum == 7) { roundNum = 5;}
             else { roundNum++; }
         }
-
         typeOfRound = roundNum + " letterwoord";
-
         round = await fetchRound(roundNum);
-        g.rounds.push(round);
-        console.log("PUSH")
-        console.log(JSON.stringify(g));
-
-        attempt = 0;
         word = round.word.word;
+        g.rounds.push(round);
+
         createGameArea();
+        writeWord( word.charAt(0) + "____")
 
-        writeWord(0, word.charAt(0) + "____")
-
+        //Ronde toevoegen aan bestaande game object
         fetch("/game/" + gameId, {
             method: 'PUT',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify(g) })
             .then(response => response.json())
-            .then(function(gameInfo) {
-                console.log("GAMEINFO")
-                console.log(gameInfo);
-            })
+            .then(function(gameInfo) { })
     }
     else {
-
+        //Game is beëindigd
     }
 }
