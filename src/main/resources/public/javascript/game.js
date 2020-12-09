@@ -2,6 +2,7 @@ var gameId;
 var word;
 var attempt = 0;
 var round;
+var typeOfRound;
 
 //<-- Functies voor het laden van de pagina -->
 //Methode die wordt aangeroepen bij het laden van de pagina
@@ -9,16 +10,16 @@ function loadGame() {
     gameId = sessionStorage.getItem("game");
     sessionStorage.removeItem("game");
     createGameArea();
-    getWord();
+    getWord(0);
 }
 
 //Het te raden woord wordt opgeladen en ingeladen in de eerste rij
-function getWord()
+function getWord(roundNumber)
 {
     fetch("game/" + gameId)
         .then(response => response.json())
         .then(function(response) {
-            word = response.rounds[0].word.word;
+            word = response.rounds[roundNumber].word.word;
             round = JSON.stringify(response.rounds[0]);
             writeWord(0,word.charAt(0) + "____")
         });
@@ -44,10 +45,10 @@ function createGameArea() {
 
 //<-- Functies voor het spelen van een game -->
 //Er wordt een nieuw woord geschreven in de game area
-function writeWord(attempt, word) {
+function writeWord(attempt, writtenWord) {
     for(var i = 0; i < 5; i++)
     {
-        var letter = word.charAt(i);
+        var letter = writtenWord.charAt(i);
         document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letter;
     }
 }
@@ -72,7 +73,7 @@ async function enterWord() {
     var givenLetters = "";
     if (feedback == "true") {
         alert("Correct!");
-        deleteGameArea();
+        await startNewRound();
     }
     else if (feedback == "false") {
         alert("Ongeldig woord!")
@@ -100,7 +101,7 @@ async function enterWord() {
         //Speler is er niet ingeslaagd om het woord te raden
         if (attempt == 5) {
             alert("Helaas, het woord was: " + word);
-            deleteGameArea();
+            await startNewRound();
         }
         else {
             writeWord(attempt, givenLetters);
@@ -110,16 +111,52 @@ async function enterWord() {
 
 //De game area wordt leeggehaald
 function deleteGameArea() {
-    alert("deleting game")
-    for(var y = 0; y < 5; y++)
-    {
-        for(var x = 0; x < 5; x++)
-        {
+    for(var y = 0; y < 5; y++) {
+        for(var x = 0; x < 5; x++) {
             var label = document.getElementById("attempt_" + y + "_" + x);
-            console.log(x + " - " + y);
             label.remove();
         }
     }
 }
 
 //<-- Functies voor het laden van een nieuwe ronde -->
+const fetchRound = async args => {
+    const res = await fetch(`/newround`, {
+        method: "POST",
+        body: JSON.stringify({ roundType: typeOfRound }),
+        headers: { "Accept": "application/json", "Content-Type": "application/json" }
+    });
+    return await res.json();
+};
+
+const fetchGame = async args => {
+    const res = await fetch(`/game/` + gameId, { method: "GET" });
+    return res.json();
+};
+
+async function startNewRound() {
+    deleteGameArea();
+    const g = await fetchGame();
+    if (g.rounds.length < 5) {
+        attempt = 0;
+
+        var roundNum = parseInt(g.rounds[(g.rounds.length - 1)].roundType.charAt(0));
+        if (roundNum == 7) { roundNum = 5;}
+        else { roundNum++; }
+        typeOfRound = roundNum + " letterwoord";
+        round = await fetchRound(roundNum);
+
+        g.rounds.push(round);
+        console.log(g);
+
+        attempt = 0;
+        word = round.word.word;
+        console.log(round);
+        createGameArea();
+
+        writeWord(0, word.charAt(0) + "____")
+    }
+    else {
+
+    }
+}

@@ -1,3 +1,5 @@
+
+
 function getUser() {
     console.log(JSON.parse(sessionStorage.getItem("loggedUser")));
 }
