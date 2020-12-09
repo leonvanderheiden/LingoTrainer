@@ -6,23 +6,10 @@ var typeOfRound;
 
 //<-- Functies voor het laden van de pagina -->
 //Methode die wordt aangeroepen bij het laden van de pagina
-function loadGame() {
+async function loadGame() {
     gameId = sessionStorage.getItem("game");
     sessionStorage.removeItem("game");
-    createGameArea();
-    getWord(0);
-}
-
-//Het te raden woord wordt opgeladen en ingeladen in de eerste rij
-function getWord(roundNumber)
-{
-    fetch("game/" + gameId)
-        .then(response => response.json())
-        .then(function(response) {
-            word = response.rounds[roundNumber].word.word;
-            round = JSON.stringify(response.rounds[0]);
-            writeWord(0,word.charAt(0) + "____")
-        });
+    await startNewRound();
 }
 
 //Er wordt een game area gemaakt waar alle letters op komen te staan
@@ -55,9 +42,10 @@ function writeWord(attempt, writtenWord) {
 
 //Feedback fetch om de letters van het ingevoerde woord te controleren
 const fetchFeedback = async args => {
+    alert(JSON.stringify(round));
     const res = await fetch(`/feedback/` + document.getElementById("word").value, {
         method: "POST",
-        body: round,
+        body: JSON.stringify(round),
         headers: {
             "Accept": "application/json", "Content-Type": "application/json"
         }
@@ -135,19 +123,22 @@ const fetchGame = async args => {
 };
 
 async function startNewRound() {
-    deleteGameArea();
     const g = await fetchGame();
     if (g.rounds.length < 5) {
+        var roundNum = 5;
         attempt = 0;
 
-        var roundNum = parseInt(g.rounds[(g.rounds.length - 1)].roundType.charAt(0));
-        if (roundNum == 7) { roundNum = 5;}
-        else { roundNum++; }
-        typeOfRound = roundNum + " letterwoord";
-        round = await fetchRound(roundNum);
+        if (g.rounds.length > 0) {
+            deleteGameArea();
+            var roundNum = parseInt(g.rounds[(g.rounds.length - 1)].roundType.charAt(0));
+            if (roundNum == 7) { roundNum = 5;}
+            else { roundNum++; }
+        }
 
+        typeOfRound = roundNum + " letterwoord";
+
+        round = await fetchRound(roundNum);
         g.rounds.push(round);
-        console.log(g);
 
         attempt = 0;
         word = round.word.word;

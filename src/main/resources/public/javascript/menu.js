@@ -28,7 +28,7 @@ async function newGame() {
     var game = new Object();
     game.score = await fetchScore();
     game.rounds = new Array();
-    game.rounds.push(await fetchRound());
+    //game.rounds.push(await fetchRound());
 
     var gameJsonString = JSON.stringify(game);
 
