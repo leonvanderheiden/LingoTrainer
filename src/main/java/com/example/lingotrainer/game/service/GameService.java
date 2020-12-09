@@ -42,8 +42,9 @@ public class GameService implements GameServiceInterface {
     @Override
     public Game updateById(Long gameid, Game game) {
         Game g = gameRepository.findDistinctById(gameid);
-
+        System.out.println(game);
         g.setScore(game.getScore());
+        g.getRounds().addAll(game.getRounds());
 
         return gameRepository.save(g);
     }

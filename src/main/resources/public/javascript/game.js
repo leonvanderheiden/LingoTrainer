@@ -42,7 +42,6 @@ function writeWord(attempt, writtenWord) {
 
 //Feedback fetch om de letters van het ingevoerde woord te controleren
 const fetchFeedback = async args => {
-    alert(JSON.stringify(round));
     const res = await fetch(`/feedback/` + document.getElementById("word").value, {
         method: "POST",
         body: JSON.stringify(round),
@@ -128,6 +127,7 @@ async function startNewRound() {
         var roundNum = 5;
         attempt = 0;
 
+        alert(g.rounds.length);
         if (g.rounds.length > 0) {
             deleteGameArea();
             var roundNum = parseInt(g.rounds[(g.rounds.length - 1)].roundType.charAt(0));
@@ -139,13 +139,23 @@ async function startNewRound() {
 
         round = await fetchRound(roundNum);
         g.rounds.push(round);
+        console.log("PUSH")
+        console.log(JSON.stringify(g));
 
         attempt = 0;
         word = round.word.word;
-        console.log(round);
         createGameArea();
 
         writeWord(0, word.charAt(0) + "____")
+
+        fetch("/game/" + gameId, {
+            method: 'PUT',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify(g) })
+            .then(response => response.json())
+            .then(function(gameInfo) {
+                console.log("GAMEINFO")
+                console.log(gameInfo);
+            })
     }
     else {
 
