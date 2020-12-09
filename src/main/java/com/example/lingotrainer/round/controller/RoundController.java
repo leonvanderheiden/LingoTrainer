@@ -45,7 +45,10 @@ public class RoundController {
             consumes = "application/json",
             produces = "application/json")
     public Round saveRoundWithWord(@RequestBody Round round) {
-        round.setWord(wordService.getRandomWordByLength(5L));
+        System.out.println(round.getRoundType());
+        int letters = Character.getNumericValue(round.getRoundType().charAt(0));
+        System.out.println("SAVEROUNDWITHWORD: " + letters);
+        round.setWord(wordService.getRandomWordByLength(Long.valueOf(letters)));
         return roundService.save(round);
     }
 

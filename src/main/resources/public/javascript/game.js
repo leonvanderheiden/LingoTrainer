@@ -16,7 +16,7 @@ async function loadGame() {
 function createGameArea() {
     for(var y = 0; y < 5; y++)
     {
-        for(var x = 0; x < 5; x++)
+        for(var x = 0; x < typeOfRound; x++)
         {
             var label = document.createElement("LABEL");
             label.setAttribute("name", "area");
@@ -98,9 +98,9 @@ async function enterWord() {
 
 //De game area wordt leeggehaald
 function deleteGameArea() {
-    const myNode = document.getElementById("gameArea");
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.lastChild);
+    const div = document.getElementById("gameArea");
+    while (div.firstChild) {
+        div.removeChild(div.lastChild);
     }
 }
 
@@ -108,7 +108,7 @@ function deleteGameArea() {
 const fetchRound = async args => {
     const res = await fetch(`/newround`, {
         method: "POST",
-        body: JSON.stringify({ roundType: typeOfRound }),
+        body: JSON.stringify({ roundType: typeOfRound + " letterwoord" }),
         headers: { "Accept": "application/json", "Content-Type": "application/json" }
     });
     return await res.json();
@@ -125,20 +125,20 @@ async function startNewRound() {
         var roundNum = 5;
         attempt = 0;
 
-        alert(g.rounds.length);
         if (g.rounds.length > 0) {
             deleteGameArea();
             var roundNum = parseInt(g.rounds[(g.rounds.length - 1)].roundType.charAt(0));
             if (roundNum == 7) { roundNum = 5;}
             else { roundNum++; }
         }
-        typeOfRound = roundNum + " letterwoord";
+
+        typeOfRound = roundNum;
         round = await fetchRound(roundNum);
         word = round.word.word;
         g.rounds.push(round);
 
         createGameArea();
-        writeWord( word.charAt(0) + "____")
+        writeWord( word.charAt(0) + '_'.repeat(roundNum - 1))
 
         //Ronde toevoegen aan bestaande game object
         fetch("/game/" + gameId, {
