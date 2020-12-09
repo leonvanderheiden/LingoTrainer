@@ -3,7 +3,7 @@ var word;
 var attempt = 0;
 var round;
 
-
+//<-- Functies voor het laden van de pagina -->
 //Methode die wordt aangeroepen bij het laden van de pagina
 function loadGame() {
     gameId = sessionStorage.getItem("game");
@@ -42,6 +42,7 @@ function createGameArea() {
 }
 
 
+//<-- Functies voor het spelen van een game -->
 //Er wordt een nieuw woord geschreven in de game area
 function writeWord(attempt, word) {
     for(var i = 0; i < 5; i++)
@@ -71,6 +72,7 @@ async function enterWord() {
     var givenLetters = "";
     if (feedback == "true") {
         alert("Correct!");
+        deleteGameArea();
     }
     else if (feedback == "false") {
         alert("Ongeldig woord!")
@@ -98,7 +100,26 @@ async function enterWord() {
         //Speler is er niet ingeslaagd om het woord te raden
         if (attempt == 5) {
             alert("Helaas, het woord was: " + word);
+            deleteGameArea();
         }
-        writeWord(attempt, givenLetters);
+        else {
+            writeWord(attempt, givenLetters);
+        }
     }
 }
+
+//De game area wordt leeggehaald
+function deleteGameArea() {
+    alert("deleting game")
+    for(var y = 0; y < 5; y++)
+    {
+        for(var x = 0; x < 5; x++)
+        {
+            var label = document.getElementById("attempt_" + y + "_" + x);
+            console.log(x + " - " + y);
+            label.remove();
+        }
+    }
+}
+
+//<-- Functies voor het laden van een nieuwe ronde -->
