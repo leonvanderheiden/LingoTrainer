@@ -12,7 +12,7 @@ public class LingotrainerApplication {
 	public static void main(String[] args) throws FileNotFoundException {
 		SpringApplication.run(LingotrainerApplication.class, args);
 
-		ProcessWordsCommand pwc = new ProcessWordsCommand();
-		pwc.process();
+		//ProcessWordsCommand pwc = new ProcessWordsCommand();
+		//pwc.process();
 	}
 }
