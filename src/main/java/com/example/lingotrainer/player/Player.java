@@ -1,7 +1,6 @@
 package com.example.lingotrainer.player;
 
 import com.example.lingotrainer.game.Game;
-import com.example.lingotrainer.highscore.Highscore;
 import com.example.lingotrainer.round.Round;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
