@@ -32,7 +32,7 @@ public class RoundService implements RoundServiceInterface {
         String word = round.getWord().getWord();
 
         //Controle of het ingevoerde woord bestaat
-        if (wordRepository.existsByWord(word)) {
+        if (wordRepository.existsByWord(attempt)) {
             //Controle of het ingevoerde woord gelijk is aan het ingevoerde woord
             if (word.equals(attempt)) {
                 return "true";

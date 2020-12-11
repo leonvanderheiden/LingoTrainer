@@ -3,6 +3,7 @@ var word;
 var attempt = 0;
 var round;
 var typeOfRound;
+var laststring = "_____";
 
 //<-- Functies voor het laden van de pagina -->
 //Methode die wordt aangeroepen bij het laden van de pagina
@@ -63,8 +64,10 @@ async function enterWord() {
         await startNewRound();
     }
     else if (feedback == "false") {
-        alert("Ongeldig woord!")
         attempt++;
+        alert(attempt);
+        alert("Ongeldig woord!");
+        writeWord(laststring);
     }
     else {
         //Leest de feedback uit een veranderd kleuren en letters waar nodig
@@ -86,6 +89,7 @@ async function enterWord() {
             }
         }
         attempt++;
+        alert(attempt);
         //Speler is er niet ingeslaagd om het woord te raden
         if (attempt == 5) {
             alert("Helaas, het woord was: " + word);
@@ -93,6 +97,7 @@ async function enterWord() {
         }
         else {
             writeWord(givenLetters);
+            laststring = givenLetters;
         }
     }
 }
@@ -139,7 +144,8 @@ async function startNewRound() {
         g.rounds.push(round);
 
         createGameArea();
-        writeWord( word.charAt(0) + '_'.repeat(roundNum - 1))
+        laststring = word.charAt(0) + '_'.repeat(roundNum - 1);
+        writeWord( laststring);
 
         //Ronde toevoegen aan bestaande game object
         fetch("/game/" + gameId, {
