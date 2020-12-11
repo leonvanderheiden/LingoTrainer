@@ -30,7 +30,6 @@ public class RoundService implements RoundServiceInterface {
     public String getFeedback(String attempt, Round round) {
         String feedback = "false";
         String word = round.getWord().getWord();
-        System.out.println(attempt + " " + attempt.length());
 
         //Controle of het ingevoerde woord bestaat
         if (wordRepository.existsByWord(word)) {

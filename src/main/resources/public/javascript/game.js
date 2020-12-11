@@ -69,7 +69,7 @@ async function enterWord() {
     else {
         //Leest de feedback uit een veranderd kleuren en letters waar nodig
         var letters = feedback.split('\n');
-        alert((letters.length - 1))
+
         for(var i = 0; i < (letters.length - 1);i++){
             document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letters[i].charAt(0);
             if (letters[i].includes("(correct)")) {
@@ -89,7 +89,7 @@ async function enterWord() {
         //Speler is er niet ingeslaagd om het woord te raden
         if (attempt == 5) {
             alert("Helaas, het woord was: " + word);
-            await startNewRound();
+            //Game ended
         }
         else {
             writeWord(givenLetters);
