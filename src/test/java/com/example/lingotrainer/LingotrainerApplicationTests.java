@@ -10,4 +10,5 @@ class LingotrainerApplicationTests {
 	void contextLoads() {
 	}
 
+
 }

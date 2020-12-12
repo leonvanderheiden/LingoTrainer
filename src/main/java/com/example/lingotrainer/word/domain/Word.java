@@ -30,6 +30,11 @@ public class Word {
         this.word = word;
     }
 
+    public Word(Long id, String word) {
+        this.id = id;
+        this.word = word;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,7 +1,7 @@
 package com.example.lingotrainer.round.controller;
 
 import com.example.lingotrainer.round.domain.Round;
-import com.example.lingotrainer.round.service.RoundServiceInterface;
+import com.example.lingotrainer.round.RoundServiceInterface;
 import com.example.lingotrainer.word.service.WordServiceInterace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

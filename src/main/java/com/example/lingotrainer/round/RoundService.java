@@ -1,4 +1,4 @@
-package com.example.lingotrainer.round.service;
+package com.example.lingotrainer.round;
 
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.data.RoundRepository;
@@ -16,6 +16,10 @@ public class RoundService implements RoundServiceInterface {
 
     public RoundService(RoundRepository roundRepository) {
         this.roundRepository = roundRepository;
+    }
+
+    public RoundService() {
+
     }
 
     @Override
