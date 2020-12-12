@@ -93,7 +93,6 @@ async function enterWord() {
 //Functie om een nieuwe poging voor te bereiden
 function createNewAttempt(givenLetters) {
     attempt++;
-    alert(attempt);
     //Speler is er niet ingeslaagd om het woord te raden
     if (attempt == 5) {
         alert("Helaas, het woord was: " + word);
@@ -123,17 +122,21 @@ const fetchRound = async args => {
     return await res.json();
 };
 
+//Het huidige game object wordt opgehaald en gereturned
 const fetchGame = async args => {
     const res = await fetch(`/game/` + gameId, { method: "GET" });
     return res.json();
 };
 
+//Maken van een nieuwe ronde
 async function startNewRound() {
     const g = await fetchGame();
+    //Er kunnen maximaal 5 rondes gespeeld worden
     if (g.rounds.length < 5) {
         var roundNum = 5;
         attempt = 0;
 
+        //Zodra er al eerder een ronde is gespeeld wordt gekeken naar wat de volgende rondesoort moet zijn
         if (g.rounds.length > 0) {
             deleteGameArea();
             var roundNum = parseInt(g.rounds[(g.rounds.length - 1)].roundType.charAt(0));
@@ -141,16 +144,18 @@ async function startNewRound() {
             else { roundNum++; }
         }
 
+        //Er wordt een nieuw round object aangemaakt en toegevoegd aan de roundlist in de huidige game
         typeOfRound = roundNum;
         round = await fetchRound(roundNum);
         word = round.word.word;
         g.rounds.push(round);
 
+        //De game wordt gemaakt in de frontend en de eerste letter van het woord wordt ingeladen
         createGameArea();
         laststring = word.charAt(0) + '_'.repeat(roundNum - 1);
-        writeWord( laststring);
+        writeWord(laststring);
 
-        //Ronde toevoegen aan bestaande game object
+        //De nieuwe ronde wordt nu ook daadwerkelijk toegevoegd aan het game object in de database
         fetch("/game/" + gameId, {
             method: 'PUT',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify(g) })
