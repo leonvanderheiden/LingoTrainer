@@ -1,6 +1,6 @@
-package com.example.lingotrainer.player;
+package com.example.lingotrainer.player.domain;
 
-import com.example.lingotrainer.game.Game;
+import com.example.lingotrainer.game.domain.Game;
 
 import java.util.List;
 

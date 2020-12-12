@@ -1,7 +1,6 @@
-package com.example.lingotrainer.score.repository;
+package com.example.lingotrainer.score.data;
 
-import com.example.lingotrainer.round.Round;
-import com.example.lingotrainer.score.Score;
+import com.example.lingotrainer.score.domain.Score;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;

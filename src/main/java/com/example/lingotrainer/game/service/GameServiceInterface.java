@@ -1,11 +1,10 @@
 package com.example.lingotrainer.game.service;
 
-import com.example.lingotrainer.game.Game;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.example.lingotrainer.game.domain.Game;
 
 public interface GameServiceInterface {
 
-    Game getGame(Long id);
+    Game getGameById(Long id);
 
     Game save(Game game);
 

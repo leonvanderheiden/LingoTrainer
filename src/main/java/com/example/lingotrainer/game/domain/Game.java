@@ -1,9 +1,8 @@
-package com.example.lingotrainer.game;
+package com.example.lingotrainer.game.domain;
 
-import com.example.lingotrainer.player.Player;
-import com.example.lingotrainer.round.Round;
-import com.example.lingotrainer.score.Score;
-import com.example.lingotrainer.word.Word;
+import com.example.lingotrainer.player.domain.Player;
+import com.example.lingotrainer.round.domain.Round;
+import com.example.lingotrainer.score.domain.Score;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

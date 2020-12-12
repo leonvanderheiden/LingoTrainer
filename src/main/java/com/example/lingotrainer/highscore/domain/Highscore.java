@@ -1,6 +1,4 @@
-package com.example.lingotrainer.highscore;
-
-import com.example.lingotrainer.player.Player;
+package com.example.lingotrainer.highscore.domain;
 
 import javax.persistence.*;
 

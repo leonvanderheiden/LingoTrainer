@@ -1,9 +1,8 @@
 package com.example.lingotrainer.game.service;
 
-import com.example.lingotrainer.game.Game;
-import com.example.lingotrainer.game.repository.GameRepository;
-import com.example.lingotrainer.player.Player;
-import com.example.lingotrainer.player.repository.PlayerRepository;
+import com.example.lingotrainer.game.domain.Game;
+import com.example.lingotrainer.game.data.GameRepository;
+import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.service.PlayerServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class GameService implements GameServiceInterface {
     }
 
     @Override
-    public Game getGame(Long id) {
+    public Game getGameById(Long id) {
         return gameRepository.findDistinctById(id);
     }
 
@@ -31,6 +30,7 @@ public class GameService implements GameServiceInterface {
         return gameRepository.save(game);
     }
 
+    //Nieuwe game wordt opgeslagen en gelijk toegevoegd aan een player
     @Override
     public Game saveGameToPlayer(Long id, Game game) {
         Player player = playerService.findById(id);

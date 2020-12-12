@@ -1,6 +1,6 @@
 package com.example.lingotrainer.score.service;
 
-import com.example.lingotrainer.score.Score;
+import com.example.lingotrainer.score.domain.Score;
 
 public interface ScoreServiceInterface {
 

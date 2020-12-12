@@ -1,12 +1,9 @@
 package com.example.lingotrainer.game.controller;
 
-
-import com.example.lingotrainer.game.Game;
+import com.example.lingotrainer.game.domain.Game;
 import com.example.lingotrainer.game.service.GameServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.transaction.Transactional;
 
 @RestController
 public class GameController {
@@ -16,7 +13,7 @@ public class GameController {
 
     @GetMapping("/game/{id}")
     public Game getGame(@PathVariable Long id) {
-        return gameService.getGame(id);
+        return gameService.getGameById(id);
     }
 
     @PostMapping(

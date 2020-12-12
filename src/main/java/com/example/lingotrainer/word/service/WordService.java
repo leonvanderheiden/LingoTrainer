@@ -1,11 +1,10 @@
 package com.example.lingotrainer.word.service;
 
-import com.example.lingotrainer.word.Word;
-import com.example.lingotrainer.word.repository.WordRepository;
+import com.example.lingotrainer.word.domain.Word;
+import com.example.lingotrainer.word.data.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

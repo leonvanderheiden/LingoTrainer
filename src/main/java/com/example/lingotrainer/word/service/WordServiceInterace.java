@@ -1,9 +1,6 @@
 package com.example.lingotrainer.word.service;
 
-import com.example.lingotrainer.word.Word;
-
-import java.io.FileNotFoundException;
-import java.util.List;
+import com.example.lingotrainer.word.domain.Word;
 
 public interface WordServiceInterace {
 

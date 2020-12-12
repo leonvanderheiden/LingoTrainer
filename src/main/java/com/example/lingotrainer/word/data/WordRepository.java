@@ -1,17 +1,12 @@
-package com.example.lingotrainer.word.repository;
+package com.example.lingotrainer.word.data;
 
-import com.example.lingotrainer.word.Word;
+import com.example.lingotrainer.word.domain.Word;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 public interface WordRepository extends JpaRepository<Word, Long> {
-    @Transactional
-    Word findDistinctById(Long id);
-
-    @Transactional
-    Word findWordByWord(String word);
 
     @Transactional
     Boolean existsByWord(String word);

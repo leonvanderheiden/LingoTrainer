@@ -1,7 +1,7 @@
 package com.example.lingotrainer.score.service;
 
-import com.example.lingotrainer.score.Score;
-import com.example.lingotrainer.score.repository.ScoreRepository;
+import com.example.lingotrainer.score.domain.Score;
+import com.example.lingotrainer.score.data.ScoreRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +19,6 @@ public class ScoreService implements ScoreServiceInterface {
 
     @Override
     public Score save(Score score) {
-
         return scoreRepository.save(score);
     }
 

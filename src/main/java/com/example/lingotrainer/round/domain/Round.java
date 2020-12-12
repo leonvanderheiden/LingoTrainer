@@ -1,12 +1,8 @@
-package com.example.lingotrainer.round;
+package com.example.lingotrainer.round.domain;
 
 
-import com.example.lingotrainer.game.Game;
-import com.example.lingotrainer.player.Player;
-import com.example.lingotrainer.word.Word;
+import com.example.lingotrainer.word.domain.Word;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.GenerationType;
 import javax.persistence.*;

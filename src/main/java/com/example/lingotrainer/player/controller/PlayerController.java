@@ -1,7 +1,7 @@
 package com.example.lingotrainer.player.controller;
 
-import com.example.lingotrainer.player.Player;
-import com.example.lingotrainer.player.PlayerDto;
+import com.example.lingotrainer.player.domain.Player;
+import com.example.lingotrainer.player.domain.PlayerDto;
 import com.example.lingotrainer.player.service.PlayerServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

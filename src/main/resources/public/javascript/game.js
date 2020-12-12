@@ -64,10 +64,8 @@ async function enterWord() {
         await startNewRound();
     }
     else if (feedback == "false") {
-        attempt++;
-        alert(attempt);
+        createNewAttempt(laststring);
         alert("Ongeldig woord!");
-        writeWord(laststring);
     }
     else {
         //Leest de feedback uit een veranderd kleuren en letters waar nodig
@@ -88,17 +86,22 @@ async function enterWord() {
                 givenLetters += "_";
             }
         }
-        attempt++;
-        alert(attempt);
-        //Speler is er niet ingeslaagd om het woord te raden
-        if (attempt == 5) {
-            alert("Helaas, het woord was: " + word);
-            //Game ended
-        }
-        else {
-            writeWord(givenLetters);
-            laststring = givenLetters;
-        }
+        createNewAttempt(givenLetters);
+    }
+}
+
+//Functie om een nieuwe poging voor te bereiden
+function createNewAttempt(givenLetters) {
+    attempt++;
+    alert(attempt);
+    //Speler is er niet ingeslaagd om het woord te raden
+    if (attempt == 5) {
+        alert("Helaas, het woord was: " + word);
+        //Game ended
+    }
+    else {
+        writeWord(givenLetters);
+        laststring = givenLetters;
     }
 }
 

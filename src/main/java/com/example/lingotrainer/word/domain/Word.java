@@ -1,6 +1,6 @@
-package com.example.lingotrainer.word;
+package com.example.lingotrainer.word.domain;
 
-import com.example.lingotrainer.round.Round;
+import com.example.lingotrainer.round.domain.Round;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 

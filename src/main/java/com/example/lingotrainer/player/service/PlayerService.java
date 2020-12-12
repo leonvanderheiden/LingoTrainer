@@ -1,15 +1,9 @@
 package com.example.lingotrainer.player.service;
 
-import com.example.lingotrainer.player.Player;
-import com.example.lingotrainer.player.repository.PlayerRepository;
-import com.example.lingotrainer.score.Score;
+import com.example.lingotrainer.player.domain.Player;
+import com.example.lingotrainer.player.data.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class PlayerService implements PlayerServiceInterface {
@@ -28,7 +22,6 @@ public class PlayerService implements PlayerServiceInterface {
 
     @Override
     public Player findByName(String name) {
-        System.out.println(playerRepository.findByNameIs(name) + " repository");
         return playerRepository.findByNameIs(name);
     }
 

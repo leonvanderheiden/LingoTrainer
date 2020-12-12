@@ -1,14 +1,9 @@
-package com.example.lingotrainer.player;
+package com.example.lingotrainer.player.domain;
 
-import com.example.lingotrainer.game.Game;
-import com.example.lingotrainer.round.Round;
+import com.example.lingotrainer.game.domain.Game;
 import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

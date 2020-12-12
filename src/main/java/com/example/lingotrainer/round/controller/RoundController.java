@@ -1,14 +1,10 @@
 package com.example.lingotrainer.round.controller;
 
-import com.example.lingotrainer.round.Round;
-import com.example.lingotrainer.round.service.RoundService;
+import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.service.RoundServiceInterface;
 import com.example.lingotrainer.word.service.WordServiceInterace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.FileNotFoundException;
-import java.util.List;
 
 @RestController
 public class RoundController {
@@ -24,6 +20,7 @@ public class RoundController {
         return roundService.getRound(id);
     }
 
+    //Geeft feedback op basis van een woordpoging en het gegeven woord in het round object
     @PostMapping(
             value = "/feedback/{attempt}",
             consumes = "application/json",
@@ -40,6 +37,7 @@ public class RoundController {
         return roundService.save(round);
     }
 
+    //Maakt een nieuw round object met een random word er aan gekoppelt
     @PostMapping(
             value = "/newround",
             consumes = "application/json",

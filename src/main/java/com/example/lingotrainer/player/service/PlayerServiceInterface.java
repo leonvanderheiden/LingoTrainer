@@ -1,8 +1,6 @@
 package com.example.lingotrainer.player.service;
 
-import com.example.lingotrainer.player.Player;
-
-import java.util.List;
+import com.example.lingotrainer.player.domain.Player;
 
 public interface PlayerServiceInterface {
     Player findById(Long id);

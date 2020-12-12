@@ -1,17 +1,11 @@
 package com.example.lingotrainer.word.controller;
 
-import com.example.lingotrainer.filterwords.application.FilterWordsProcessor;
-import com.example.lingotrainer.filterwords.data.FileWordReader;
-import com.example.lingotrainer.filterwords.domain.FileWordWriter;
-import com.example.lingotrainer.filterwords.domain.LingoWordFilter;
-import com.example.lingotrainer.score.Score;
-import com.example.lingotrainer.word.Word;
+import com.example.lingotrainer.word.domain.Word;
 import com.example.lingotrainer.word.service.WordServiceInterace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.FileNotFoundException;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WordController {
@@ -19,18 +13,9 @@ public class WordController {
     @Autowired
     public WordServiceInterace wordsService;
 
+    //Returned een random woord van een bepaalde lengte in de database
     @GetMapping("/getrandomword/{length}")
     public Word getRandomWord(@PathVariable Long length) {
         return wordsService.getRandomWordByLength(length);
-    }
-
-    @GetMapping("/savewords")
-    public Boolean saveWords() throws FileNotFoundException {
-        FilterWordsProcessor fwp = new FilterWordsProcessor(new FileWordReader(), new LingoWordFilter(), new FileWordWriter());
-        for (String words : fwp.processWordsSnel()) {
-            Word word = new Word(words);
-            //wordsService.save(word);
-        }
-        return true;
     }
 }

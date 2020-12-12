@@ -1,6 +1,5 @@
-package com.example.lingotrainer.score;
+package com.example.lingotrainer.score.domain;
 
-import com.example.lingotrainer.game.Game;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;

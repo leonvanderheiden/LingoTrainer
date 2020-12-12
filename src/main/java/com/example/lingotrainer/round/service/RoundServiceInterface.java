@@ -1,8 +1,6 @@
 package com.example.lingotrainer.round.service;
 
-import com.example.lingotrainer.round.Round;
-
-import java.util.List;
+import com.example.lingotrainer.round.domain.Round;
 
 public interface RoundServiceInterface {
 

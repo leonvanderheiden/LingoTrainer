@@ -1,10 +1,7 @@
 package com.example.lingotrainer.filterwords.domain;
 
-import com.example.lingotrainer.filterwords.domain.WordWriter;
-import com.example.lingotrainer.score.repository.ScoreRepository;
-import com.example.lingotrainer.word.Word;
-import com.example.lingotrainer.word.repository.WordRepository;
-import com.example.lingotrainer.word.service.WordServiceInterace;
+import com.example.lingotrainer.score.data.ScoreRepository;
+import com.example.lingotrainer.word.domain.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
