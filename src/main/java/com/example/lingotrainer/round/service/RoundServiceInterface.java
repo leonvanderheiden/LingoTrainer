@@ -6,7 +6,7 @@ public interface RoundServiceInterface {
 
     Round findById(long id);
 
-    String getFeedback(String attempt, Round round);
+    String getFeedback(String attempt, int attemptNum, Round round);
 
     Round save(Round round);
 

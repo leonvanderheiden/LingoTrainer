@@ -3,6 +3,7 @@ package com.example.lingotrainer.round.service;
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.data.RoundRepository;
 import com.example.lingotrainer.round.exceptions.RoundNotFoundException;
+import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.word.data.WordRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,15 @@ public class RoundService implements RoundServiceInterface {
     }
 
     @Override
-    public String getFeedback(String attempt, Round round) {
+    public String getFeedback(String attempt, int attemptNum, Round round) {
+
+
         String feedback = "false";
         String word = round.getWord().getWord();
+        int roundType = Character.getNumericValue(round.getRoundType().charAt(0));
 
-        //Controle of het ingevoerde woord bestaat
-        if (wordRepository.existsByWord(attempt)) {
+        //Controle of het ingevoerde woord bestaat en de woordlengte bij de ronde past
+        if (wordRepository.existsByWord(attempt) && attempt.length() == roundType) {
             //Controle of het ingevoerde woord gelijk is aan het ingevoerde woord
             if (word.equals(attempt)) {
                 return "true";
@@ -74,9 +78,6 @@ public class RoundService implements RoundServiceInterface {
                     feedback += "\n";
                 }
             }
-        }
-        else{
-            feedback = "false";
         }
         return feedback;
     }

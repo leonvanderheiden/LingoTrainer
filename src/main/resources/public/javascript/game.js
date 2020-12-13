@@ -43,7 +43,7 @@ function writeWord(writtenWord) {
 
 //Feedback fetch om de letters van het ingevoerde woord te controleren
 const fetchFeedback = async args => {
-    const res = await fetch(`/feedback/` + document.getElementById("word").value, {
+    const res = await fetch(`/feedback/` + document.getElementById("word").value + "/" + attempt, {
         method: "POST",
         body: JSON.stringify(round),
         headers: {
