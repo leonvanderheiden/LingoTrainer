@@ -1,6 +1,7 @@
 package com.example.lingotrainer.player.domain;
 
 import com.example.lingotrainer.game.domain.Game;
+import com.example.lingotrainer.highscore.domain.Highscore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -15,9 +16,9 @@ public class Player {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "highscore_id", referencedColumnName = "id", nullable = true)
-    //private Highscore highscore;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "highscore_id", referencedColumnName = "id", nullable = true)
+    private Highscore highscore;
 
     @NotNull
     @Column(unique = true)
@@ -66,4 +67,8 @@ public class Player {
     public void setGames(List<Game> games) {
         this.games = games;
     }
+
+    public Highscore getHighscore() { return highscore; }
+
+    public void setHighscore(Highscore highscore) { this.highscore = highscore; }
 }

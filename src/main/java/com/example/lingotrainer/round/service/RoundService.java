@@ -23,9 +23,7 @@ public class RoundService implements RoundServiceInterface {
         this.roundRepository = roundRepository;
     }
 
-    public RoundService() {
-
-    }
+    public RoundService() { }
 
     @Override
     public Round findById(long roundid) {
@@ -78,7 +76,6 @@ public class RoundService implements RoundServiceInterface {
             }
         }
         else{
-            System.out.println("Verkeerd woord");
             feedback = "false";
         }
         return feedback;
