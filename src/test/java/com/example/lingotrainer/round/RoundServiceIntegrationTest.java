@@ -2,7 +2,7 @@ package com.example.lingotrainer.round;
 
 import com.example.lingotrainer.round.data.RoundRepository;
 import com.example.lingotrainer.round.domain.Round;
-import org.junit.Before;
+import com.example.lingotrainer.round.service.RoundService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

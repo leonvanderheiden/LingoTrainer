@@ -1,6 +1,6 @@
 package com.example.lingotrainer;
 
-import com.example.lingotrainer.round.RoundServiceInterface;
+import com.example.lingotrainer.round.service.RoundServiceInterface;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

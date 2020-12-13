@@ -1,4 +1,4 @@
-package com.example.lingotrainer.round;
+package com.example.lingotrainer.round.service;
 
 import com.example.lingotrainer.round.domain.Round;
 

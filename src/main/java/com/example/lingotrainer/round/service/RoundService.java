@@ -1,4 +1,4 @@
-package com.example.lingotrainer.round;
+package com.example.lingotrainer.round.service;
 
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.data.RoundRepository;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoundService implements RoundServiceInterface {
 
+    @Autowired
     private RoundRepository roundRepository;
 
     @Autowired
