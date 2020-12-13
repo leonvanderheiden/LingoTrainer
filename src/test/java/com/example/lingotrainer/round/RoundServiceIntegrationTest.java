@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringRunner.class)
 public class RoundServiceIntegrationTest {
 
-    @TestConfiguration
+    /*@TestConfiguration
     static class RoundServiceIntegrationTestContextConfiguration {
 
         @Bean
@@ -42,5 +42,5 @@ public class RoundServiceIntegrationTest {
         assertEquals(name, round.getRoundType());
     }
 
-    // write test cases here
+    // write test cases here*/
 }
