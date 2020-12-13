@@ -2,6 +2,7 @@ package com.example.lingotrainer.player.service;
 
 import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.data.PlayerRepository;
+import com.example.lingotrainer.player.exceptions.PlayerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ public class PlayerService implements PlayerServiceInterface {
     }
 
     @Override
-    public Player findById(Long id) {
-        return playerRepository.findDistinctById(id);
+    public Player findById(Long playerid) {
+        return playerRepository.findById(playerid).orElseThrow(() -> new PlayerNotFoundException(playerid));
     }
 
     @Override
@@ -54,7 +55,7 @@ public class PlayerService implements PlayerServiceInterface {
 
     @Override
     public Player update(Long playerid, Player player) {
-        Player p = playerRepository.findDistinctById(playerid);
+        Player p = playerRepository.findById(playerid).orElseThrow(() -> new PlayerNotFoundException(playerid));
 
         p.setName(player.getName());
         p.setPassword(player.getPassword());

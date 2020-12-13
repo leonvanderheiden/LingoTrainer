@@ -13,7 +13,7 @@ public class GameController {
 
     @GetMapping("/game/{id}")
     public Game getGame(@PathVariable Long id) {
-        return gameService.getGameById(id);
+        return gameService.findById(id);
     }
 
     @PostMapping(

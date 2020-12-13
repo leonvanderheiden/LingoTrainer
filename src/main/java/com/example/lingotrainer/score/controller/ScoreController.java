@@ -13,7 +13,7 @@ public class ScoreController {
 
     @GetMapping("/score/{id}")
     public Score getScore(@PathVariable Long id) {
-        return scoreService.getScore(id);
+        return scoreService.findById(id);
     }
 
     @PostMapping(

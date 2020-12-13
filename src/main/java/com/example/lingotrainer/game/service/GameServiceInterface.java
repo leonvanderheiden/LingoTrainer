@@ -4,7 +4,7 @@ import com.example.lingotrainer.game.domain.Game;
 
 public interface GameServiceInterface {
 
-    Game getGameById(Long id);
+    Game findById(Long id);
 
     Game save(Game game);
 

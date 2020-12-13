@@ -4,7 +4,7 @@ import com.example.lingotrainer.score.domain.Score;
 
 public interface ScoreServiceInterface {
 
-    Score getScore(long id);
+    Score findById(long id);
 
     Score save(Score score);
 

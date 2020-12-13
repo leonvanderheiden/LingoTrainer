@@ -17,7 +17,7 @@ public class RoundController {
 
     @GetMapping("/round/{id}")
     public Round getRound(@PathVariable Long id) {
-        return roundService.getRound(id);
+        return roundService.findById(id);
     }
 
     //Geeft feedback op basis van een woordpoging en het gegeven woord in het round object

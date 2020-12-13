@@ -28,7 +28,7 @@ public class RoundService implements RoundServiceInterface {
     }
 
     @Override
-    public Round getRound(long roundid) {
+    public Round findById(long roundid) {
         return roundRepository.findById(roundid).orElseThrow(() -> new RoundNotFoundException(roundid));
     }
 

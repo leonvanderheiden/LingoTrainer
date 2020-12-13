@@ -4,7 +4,7 @@ import com.example.lingotrainer.round.domain.Round;
 
 public interface RoundServiceInterface {
 
-    Round getRound(long id);
+    Round findById(long id);
 
     String getFeedback(String attempt, Round round);
 

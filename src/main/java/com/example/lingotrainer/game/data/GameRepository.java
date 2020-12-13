@@ -9,7 +9,4 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     @Transactional
     Boolean deleteDistinctById(Long gameid);
-
-    @Transactional
-    Game findDistinctById(Long gameid);
 }

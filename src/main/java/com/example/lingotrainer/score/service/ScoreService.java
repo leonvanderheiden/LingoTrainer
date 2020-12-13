@@ -1,5 +1,6 @@
 package com.example.lingotrainer.score.service;
 
+import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.score.data.ScoreRepository;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ public class ScoreService implements ScoreServiceInterface {
     }
 
     @Override
-    public Score getScore(long id) {
-        return scoreRepository.findDistinctById(id);
+    public Score findById(long scoreid) {
+        return scoreRepository.findById(scoreid).orElseThrow(() -> new ScoreNotFoundException(scoreid));
     }
 
     @Override
@@ -24,8 +25,7 @@ public class ScoreService implements ScoreServiceInterface {
 
     @Override
     public Score updateById(Long scoreid, Score score) {
-        Score  s = scoreRepository.findDistinctById(scoreid);
-
+        Score  s = scoreRepository.findById(scoreid).orElseThrow(() -> new ScoreNotFoundException(scoreid));
         s.setScore(score.getScore());
 
         return scoreRepository.save(s);
