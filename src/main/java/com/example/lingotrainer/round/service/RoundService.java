@@ -2,9 +2,13 @@ package com.example.lingotrainer.round.service;
 
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.data.RoundRepository;
+import com.example.lingotrainer.round.exceptions.RoundNotFoundException;
 import com.example.lingotrainer.word.data.WordRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class RoundService implements RoundServiceInterface {
@@ -24,8 +28,8 @@ public class RoundService implements RoundServiceInterface {
     }
 
     @Override
-    public Round getRound(long id) {
-        return roundRepository.findDistinctById(id);
+    public Round getRound(long roundid) {
+        return roundRepository.findById(roundid).orElseThrow(() -> new RoundNotFoundException(roundid));
     }
 
     @Override
@@ -87,7 +91,7 @@ public class RoundService implements RoundServiceInterface {
 
     @Override
     public Round updateById(Long roundid, Round round) {
-        Round r = roundRepository.findDistinctById(roundid);
+        Round r = roundRepository.findById(roundid).orElseThrow(() -> new RoundNotFoundException(roundid));
 
         r.setRoundType(round.getRoundType());
 
