@@ -1,5 +1,7 @@
 package com.example.lingotrainer.player.service;
 
+import com.example.lingotrainer.highscore.domain.Highscore;
+import com.example.lingotrainer.highscore.service.HighscoreServiceInterface;
 import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.data.PlayerRepository;
 import com.example.lingotrainer.player.exceptions.PlayerNotFoundException;
@@ -11,6 +13,9 @@ public class PlayerService implements PlayerServiceInterface {
 
     @Autowired
     private PlayerRepository playerRepository;
+
+    @Autowired
+    private HighscoreServiceInterface highscoreService;
 
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
@@ -42,7 +47,9 @@ public class PlayerService implements PlayerServiceInterface {
             }
         }
         else {
-            //Als dat niet het geval is wordt er een nieuwe user aangemaakt
+            //Als dat niet het geval is wordt er een nieuwe user aangemaakt met een highscore van 0
+            Highscore h = new Highscore(0L);
+            player.setHighscore(highscoreService.save(h));
             p = playerRepository.save(player);
         }
         return p;

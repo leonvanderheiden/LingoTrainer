@@ -1,4 +1,4 @@
-package com.example.lingotrainer.score.service;
+package com.example.lingotrainer.score.application;
 
 import com.example.lingotrainer.score.domain.Score;
 

@@ -1,7 +1,7 @@
-package com.example.lingotrainer.score.controller;
+package com.example.lingotrainer.score.presentation;
 
 import com.example.lingotrainer.score.domain.Score;
-import com.example.lingotrainer.score.service.ScoreServiceInterface;
+import com.example.lingotrainer.score.application.ScoreServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

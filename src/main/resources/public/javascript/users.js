@@ -1,9 +1,3 @@
-
-
-function getUser() {
-    console.log(JSON.parse(sessionStorage.getItem("loggedUser")));
-}
-
 function loginFunction() {
     var player = new Object();
     player.name = document.getElementById("username").value;

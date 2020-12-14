@@ -15,6 +15,12 @@ public class Highscore {
     @NotNull
     private Long highscore;
 
+    public Highscore() { }
+
+    public Highscore(Long highscore) {
+        this.highscore = highscore;
+    }
+
     public Long getId() {
         return id;
     }

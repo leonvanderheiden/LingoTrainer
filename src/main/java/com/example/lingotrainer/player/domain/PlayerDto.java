@@ -1,6 +1,7 @@
 package com.example.lingotrainer.player.domain;
 
 import com.example.lingotrainer.game.domain.Game;
+import com.example.lingotrainer.highscore.domain.Highscore;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public class PlayerDto {
     private String name;
 
     private List<Game> games;
+
+    private Highscore highscore;
 
     public Long getId() {
         return id;
@@ -33,5 +36,13 @@ public class PlayerDto {
 
     public void setGames(List<Game> games) {
         this.games = games;
+    }
+
+    public Highscore getHighscore() {
+        return highscore;
+    }
+
+    public void setHighscore(Highscore highscore) {
+        this.highscore = highscore;
     }
 }

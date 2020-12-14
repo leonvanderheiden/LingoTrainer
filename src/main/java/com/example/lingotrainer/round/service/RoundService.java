@@ -33,8 +33,6 @@ public class RoundService implements RoundServiceInterface {
 
     @Override
     public String getFeedback(String attempt, int attemptNum, Round round) {
-
-
         String feedback = "false";
         String word = round.getWord().getWord();
         int roundType = Character.getNumericValue(round.getRoundType().charAt(0));

@@ -25,7 +25,7 @@ public class HighscoreController {
         return highscoreService.save(highscore);
     }
 
-    @PutMapping("/score/{highscoreid}")
+    @PutMapping("/highscore/{highscoreid}")
     public Highscore updateHighscore(@PathVariable Long highscoreid, @RequestBody Highscore highscore) {
         return highscoreService.updateById(highscoreid, highscore);
     }

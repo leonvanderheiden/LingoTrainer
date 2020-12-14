@@ -44,7 +44,7 @@ public class GameService implements GameServiceInterface {
     @Override
     public Game updateById(Long gameid, Game game) {
         Game g = gameRepository.findById(gameid).orElseThrow(() -> new GameNotFoundException(gameid));
-        g.setScore(game.getScore());
+        //g.setScore(game.getScore());
         g.getRounds().clear();
         g.getRounds().addAll(game.getRounds());
 

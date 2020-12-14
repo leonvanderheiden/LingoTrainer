@@ -1,4 +1,5 @@
 var gameId;
+var userId;
 var word;
 var attempt = 0;
 var round;
@@ -61,6 +62,8 @@ async function enterWord() {
     var givenLetters = "";
     if (feedback == "true") {
         alert("Correct!");
+        var attemptsLeft = 5 - attempt;
+        await updateScore(100 * attemptsLeft);
         await startNewRound();
     }
     else if (feedback == "false") {
@@ -70,35 +73,42 @@ async function enterWord() {
     else {
         //Leest de feedback uit een veranderd kleuren en letters waar nodig
         var letters = feedback.split('\n');
+        var totalScoreAddition = 0;
 
         for(var i = 0; i < (letters.length - 1);i++){
             document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letters[i].charAt(0);
             if (letters[i].includes("(correct)")) {
                 givenLetters += letters[i].charAt(0);
+                //Score +10 letter op de goede plaats zit
+                totalScoreAddition += 10;
             }
             else {
                 if (letters[i].includes("(absent)")) {
                     document.getElementById("attempt_" + attempt + "_" + i).style.backgroundColor = "red";
                 }
                 else {
+                    //Score +5 zodra er een letter aanwezig is
+                    totalScoreAddition += 5;
                     document.getElementById("attempt_" + attempt + "_" + i).style.backgroundColor = "yellow";
                 }
                 givenLetters += "_";
             }
         }
-        createNewAttempt(givenLetters);
+        await updateScore(totalScoreAddition);
+        await createNewAttempt(givenLetters);
     }
 }
 
 //Functie om een nieuwe poging voor te bereiden
-function createNewAttempt(givenLetters) {
+async function createNewAttempt(givenLetters) {
     attempt++;
     //Speler is er niet ingeslaagd om het woord te raden
     if (attempt == 5) {
-        alert("Helaas, het woord was: " + word);
+        const g = await fetchGame();
+        alert("Helaas, het woord was: " + word + ". Uw eindscore is: " + g.score.score);
+        await updateHighscore(g.score.score);
         //Game ended
-    }
-    else {
+    } else {
         writeWord(givenLetters);
         laststring = givenLetters;
     }
@@ -128,6 +138,42 @@ const fetchGame = async args => {
     return res.json();
 };
 
+//De highscore van de player wordt ingeladen
+const fetchHighscore = async args => {
+    const res = await fetch(`/highscore/` + sessionStorage.getItem("LoggedUser").highscore.id, { method: "GET" });
+    return res.json();
+};
+
+//Updaten van de score
+async function updateScore(addition) {
+    const g = await fetchGame();
+    var score = g.score;
+    g.score.score += addition;
+    fetch("/score/" + score.id, {
+        method: 'PUT',
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify(g.score)
+    })
+        .then(response => response.json())
+        .then(function (scoreInfo) { console.log(scoreInfo);
+        })
+}
+
+//Update highscore
+async function updateHighscore(score) {
+    var highscoreObj = JSON.parse(sessionStorage.getItem("loggedUser")).highscore;
+
+    if (score > highscoreObj.highscore) {
+        console.log("Nieuwe highscore: " + score + " - " + highscoreObj.highscore);
+        fetch("/highscore/" + highscoreObj.id, {
+            method: 'PUT',
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify({ highscore : score })
+        })
+            .then(response => response.json())
+            .then(function (scoreInfo) { console.log(scoreInfo);
+            })
+    }
+}
+
 //Maken van een nieuwe ronde
 async function startNewRound() {
     const g = await fetchGame();
@@ -149,6 +195,8 @@ async function startNewRound() {
         round = await fetchRound(roundNum);
         word = round.word.word;
         g.rounds.push(round);
+
+        console.log(word);
 
         //De game wordt gemaakt in de frontend en de eerste letter van het woord wordt ingeladen
         createGameArea();

@@ -16,7 +16,6 @@ async function newGame() {
     var game = new Object();
     game.score = await fetchScore();
     game.rounds = new Array();
-    //game.rounds.push(await fetchRound());
 
     var gameJsonString = JSON.stringify(game);
 
@@ -30,16 +29,3 @@ async function newGame() {
         })
 
 }
-//Misschien voor later
-/*function loadGames() {
-    fetch("player/" + user.id)
-        .then(response => response.json())
-        .then(function(response) {
-            for (var i = 0; i < response.games.length; i++) {
-                var rounds = response.games[i].rounds.length;
-                if (rounds < 5) {
-
-                }
-            }
-        });
-}*/
