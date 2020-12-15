@@ -2,7 +2,7 @@ package com.example.lingotrainer.filterwords.presentation;
 
 import com.example.lingotrainer.filterwords.application.FilterWordsProcessor;
 import com.example.lingotrainer.filterwords.data.FileWordReader;
-import com.example.lingotrainer.filterwords.domain.FileWordWriter;
+import com.example.lingotrainer.filterwords.data.FileWordWriter;
 import com.example.lingotrainer.filterwords.domain.LingoWordFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

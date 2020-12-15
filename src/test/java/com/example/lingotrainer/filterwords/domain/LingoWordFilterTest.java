@@ -13,14 +13,21 @@ public class LingoWordFilterTest {
 
     private static Stream<Arguments> provideWordResult() {
       return Stream.of(
-              Arguments.of("goeie", true)
+              Arguments.of("goeie", true),
+              Arguments.of("topper", true),
+              Arguments.of("joviaal", true),
+              Arguments.of("fout", false),
+              Arguments.of("achtchar", false),
+              Arguments.of("Slecht", false),
+              Arguments.of("f0ut3", false),
+              Arguments.of("fout-", false),
+              Arguments.of("slëcht", false)
       );
     }
 
     @ParameterizedTest
     @MethodSource("provideWordResult")
     public void isWordValidTest(String word, boolean expectedresult) {
-        System.out.println("test");
         LingoWordFilter lingoWordFilter = new LingoWordFilter();
 
         boolean result = lingoWordFilter.isWordValid(word);
