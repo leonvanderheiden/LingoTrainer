@@ -22,11 +22,11 @@ public class RoundController {
 
     //Geeft feedback op basis van een woordpoging en het gegeven woord in het round object
     @PostMapping(
-            value = "/feedback/{attempt}/{attemptNum}",
+            value = "/feedback/{attempt}",
             consumes = "application/json",
             produces = "application/json")
-    public String getFeedback(@PathVariable("attempt") String attempt, @PathVariable("attemptNum") int num, @RequestBody Round round) {
-        return roundService.getFeedback(attempt, num, round);
+    public String getFeedback(@PathVariable("attempt") String attempt, @RequestBody Round round) {
+        return roundService.getFeedback(attempt, round);
     }
 
     @PostMapping(

@@ -27,6 +27,14 @@ public class Round {
     @JoinColumn(name = "word_id", nullable = true)
     private Word word;
 
+    public Round() { }
+
+    public Round(Long id, String roundType, Word word) {
+        this.id = id;
+        this.roundType = roundType;
+        this.word = word;
+    }
+
     public Long getId() {
         return id;
     }
