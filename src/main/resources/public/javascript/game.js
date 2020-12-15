@@ -11,6 +11,8 @@ var laststring = "_____";
 async function loadGame() {
     gameId = sessionStorage.getItem("game");
     sessionStorage.removeItem("game");
+    var hs = await fetchHighscore();
+    document.getElementById("highscore").innerHTML = "Highscore: " + hs.highscore;
     await startNewRound();
 }
 
@@ -56,7 +58,7 @@ const fetchFeedback = async args => {
 };
 
 //Gebruiker voert een woord in
-async function enterWord() {
+async function enterWord(failed) {
     //Gebruikt de fetch methode om feedback te halen uit het object ronde
     const feedback = await fetchFeedback();
     var givenLetters = "";
@@ -97,17 +99,26 @@ async function enterWord() {
         await updateScore(totalScoreAddition);
         await createNewAttempt(givenLetters);
     }
+    document.getElementById("word").value = "";
+}
+
+//Functie om een game te beëindigen
+async function endGame(message) {
+    const g = await fetchGame();
+    if (await updateHighscore() == true) {
+        message += " [Nieuwe highscore!]";
+    }
+    alert(message);
+    window.location.href = "menu.html";
 }
 
 //Functie om een nieuwe poging voor te bereiden
 async function createNewAttempt(givenLetters) {
     attempt++;
+    const g = await fetchGame();
     //Speler is er niet ingeslaagd om het woord te raden
     if (attempt == 5) {
-        const g = await fetchGame();
-        alert("Helaas, het woord was: " + word + ". Uw eindscore is: " + g.score.score);
-        await updateHighscore(g.score.score);
-        //Game ended
+        await endGame("Helaas, het woord was: " + word + ". Uw eindscore is: " + document.getElementById("score").innerHTML.split(" ")[1]);
     } else {
         writeWord(givenLetters);
         laststring = givenLetters;
@@ -138,9 +149,9 @@ const fetchGame = async args => {
     return res.json();
 };
 
-//De highscore van de player wordt ingeladen
+//De huidige highscore wordt opgehaald en gereturned
 const fetchHighscore = async args => {
-    const res = await fetch(`/highscore/` + sessionStorage.getItem("LoggedUser").highscore.id, { method: "GET" });
+    const res = await fetch(`/highscore/` + JSON.parse(sessionStorage.getItem("loggedUser")).highscore.id, { method: "GET" });
     return res.json();
 };
 
@@ -149,29 +160,34 @@ async function updateScore(addition) {
     const g = await fetchGame();
     var score = g.score;
     g.score.score += addition;
+    document.getElementById("score").innerHTML = "Score: " + g.score.score;
     fetch("/score/" + score.id, {
         method: 'PUT',
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify(g.score)
     })
         .then(response => response.json())
-        .then(function (scoreInfo) { console.log(scoreInfo);
+        .then(function (scoreInfo) {
         })
 }
 
 //Update highscore
-async function updateHighscore(score) {
+async function updateHighscore() {
     var highscoreObj = JSON.parse(sessionStorage.getItem("loggedUser")).highscore;
+    var hs = await fetchHighscore();
+    var score = document.getElementById("score").innerHTML.split(" ")[1];
+    var returnValue = false;
 
-    if (score > highscoreObj.highscore) {
-        console.log("Nieuwe highscore: " + score + " - " + highscoreObj.highscore);
+    if (score > hs.highscore) {
+        returnValue = true;
         fetch("/highscore/" + highscoreObj.id, {
             method: 'PUT',
             headers: {'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify({ highscore : score })
         })
             .then(response => response.json())
-            .then(function (scoreInfo) { console.log(scoreInfo);
+            .then(function (scoreInfo) {
             })
     }
+    return returnValue;
 }
 
 //Maken van een nieuwe ronde
@@ -196,8 +212,6 @@ async function startNewRound() {
         word = round.word.word;
         g.rounds.push(round);
 
-        console.log(word);
-
         //De game wordt gemaakt in de frontend en de eerste letter van het woord wordt ingeladen
         createGameArea();
         laststring = word.charAt(0) + '_'.repeat(roundNum - 1);
@@ -211,6 +225,7 @@ async function startNewRound() {
             .then(function(gameInfo) { })
     }
     else {
-        //Game is beëindigd
+        const g = await fetchGame();
+        await endGame("U heeft alle rondes uitgespeeld. Uw eindscore is: " + g.score.score);
     }
 }
