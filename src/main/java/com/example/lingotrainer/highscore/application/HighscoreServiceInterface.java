@@ -1,7 +1,6 @@
-package com.example.lingotrainer.highscore.service;
+package com.example.lingotrainer.highscore.application;
 
 import com.example.lingotrainer.highscore.domain.Highscore;
-import com.example.lingotrainer.score.domain.Score;
 
 public interface HighscoreServiceInterface {
     Highscore findById(long highscoreid);

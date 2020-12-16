@@ -1,8 +1,7 @@
-package com.example.lingotrainer.highscore.controller;
+package com.example.lingotrainer.highscore.presentation;
 
 import com.example.lingotrainer.highscore.domain.Highscore;
-import com.example.lingotrainer.highscore.service.HighscoreServiceInterface;
-import com.example.lingotrainer.score.domain.Score;
+import com.example.lingotrainer.highscore.application.HighscoreServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

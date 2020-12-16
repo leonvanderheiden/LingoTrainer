@@ -1,4 +1,4 @@
-package com.example.lingotrainer.word.service;
+package com.example.lingotrainer.word.application;
 
 import com.example.lingotrainer.word.domain.Word;
 

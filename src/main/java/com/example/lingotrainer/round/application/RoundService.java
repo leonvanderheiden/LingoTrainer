@@ -1,15 +1,11 @@
-package com.example.lingotrainer.round.service;
+package com.example.lingotrainer.round.application;
 
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.data.RoundRepository;
 import com.example.lingotrainer.round.exceptions.RoundNotFoundException;
-import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.word.data.WordRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class RoundService implements RoundServiceInterface {

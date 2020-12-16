@@ -1,8 +1,7 @@
 package com.example.lingotrainer;
 
-import com.example.lingotrainer.MyUnit;
 import com.example.lingotrainer.filterwords.domain.LingoWordFilter;
-import com.example.lingotrainer.round.service.RoundServiceInterface;
+import com.example.lingotrainer.round.application.RoundServiceInterface;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

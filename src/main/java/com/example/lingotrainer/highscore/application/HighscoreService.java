@@ -1,9 +1,7 @@
-package com.example.lingotrainer.highscore.service;
+package com.example.lingotrainer.highscore.application;
 
 import com.example.lingotrainer.highscore.data.HighscoreRepository;
 import com.example.lingotrainer.highscore.domain.Highscore;
-import com.example.lingotrainer.score.data.ScoreRepository;
-import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import org.springframework.stereotype.Service;
 

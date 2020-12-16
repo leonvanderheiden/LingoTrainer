@@ -1,15 +1,4 @@
-package com.example.lingotrainer.round.service;
-
-import com.example.lingotrainer.filterwords.domain.LingoWordFilter;
-import com.example.lingotrainer.round.domain.Round;
-import com.example.lingotrainer.word.data.WordRepository;
-import com.example.lingotrainer.word.domain.Word;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.stream.Stream;
+package com.example.lingotrainer.round.application;
 
 import static org.junit.Assert.assertEquals;
 

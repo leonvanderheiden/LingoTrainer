@@ -1,8 +1,8 @@
-package com.example.lingotrainer.round.controller;
+package com.example.lingotrainer.round.presentation;
 
 import com.example.lingotrainer.round.domain.Round;
-import com.example.lingotrainer.round.service.RoundServiceInterface;
-import com.example.lingotrainer.word.service.WordServiceInterace;
+import com.example.lingotrainer.round.application.RoundServiceInterface;
+import com.example.lingotrainer.word.application.WordServiceInterace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class RoundController {
     public WordServiceInterace wordService;
 
     @GetMapping("/round/{id}")
-    public Round getRound(@PathVariable Long id) {
+    public Round getRoundById(@PathVariable Long id) {
         return roundService.findById(id);
     }
 

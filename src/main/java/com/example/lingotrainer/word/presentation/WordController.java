@@ -1,7 +1,7 @@
-package com.example.lingotrainer.word.controller;
+package com.example.lingotrainer.word.presentation;
 
 import com.example.lingotrainer.word.domain.Word;
-import com.example.lingotrainer.word.service.WordServiceInterace;
+import com.example.lingotrainer.word.application.WordServiceInterace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

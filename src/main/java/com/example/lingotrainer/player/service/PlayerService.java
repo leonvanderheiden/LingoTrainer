@@ -1,7 +1,7 @@
 package com.example.lingotrainer.player.service;
 
 import com.example.lingotrainer.highscore.domain.Highscore;
-import com.example.lingotrainer.highscore.service.HighscoreServiceInterface;
+import com.example.lingotrainer.highscore.application.HighscoreServiceInterface;
 import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.data.PlayerRepository;
 import com.example.lingotrainer.player.exceptions.PlayerNotFoundException;

@@ -1,4 +1,4 @@
-package com.example.lingotrainer.game.service;
+package com.example.lingotrainer.game.application;
 
 import com.example.lingotrainer.game.domain.Game;
 
