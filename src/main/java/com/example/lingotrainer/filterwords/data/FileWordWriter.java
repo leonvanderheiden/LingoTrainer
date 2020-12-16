@@ -17,13 +17,18 @@ public class FileWordWriter implements WordWriter {
     @Autowired
     public FileWordWriter() { }
 
+    //Methode om alle 'toegestaande' woorden in de database te laden
     @Override
     public boolean writeWords(List<String> validWords) {
-        System.out.println(wordRepository.count());
+        Boolean result = false;
+
+        if (wordRepository.count() == 0) {
             for (String word : validWords) {
                 Word newWord = new Word(word);
-
+                wordRepository.save(newWord);
             }
-        return true;
+            result = true;
+        }
+        return result;
     }
 }

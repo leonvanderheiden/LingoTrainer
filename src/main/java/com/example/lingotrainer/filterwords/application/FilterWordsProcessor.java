@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,8 +32,8 @@ public class FilterWordsProcessor {
         this.wordFilter = wordFilter;
         this.wordWriter = wordWriter;
     }
-
-    public void processWords() throws FileNotFoundException {
+    
+    public void processWords() throws IOException {
         List<String> allWords = wordReader.getWordsFromFile();
         List<String> validWords = wordFilter.getFilteredWords(allWords);
         wordWriter.writeWords(validWords);
