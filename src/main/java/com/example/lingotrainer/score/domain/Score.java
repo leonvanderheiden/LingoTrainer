@@ -15,6 +15,13 @@ public class Score {
     @NotNull
     private long score;
 
+    public Score() { }
+
+    public Score(Long id, long score) {
+        this.id = id;
+        this.score = score;
+    }
+
     public Long getId() {
         return id;
     }

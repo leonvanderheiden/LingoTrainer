@@ -5,6 +5,7 @@ var attempt = 0;
 var round;
 var typeOfRound;
 var laststring = "_____";
+var lastAction = new Date();
 
 //<-- Functies voor het laden van de pagina -->
 //Methode die wordt aangeroepen bij het laden van de pagina
@@ -59,47 +60,55 @@ const fetchFeedback = async args => {
 
 //Gebruiker voert een woord in
 async function enterWord(failed) {
-    //Gebruikt de fetch methode om feedback te halen uit het object ronde
-    const feedback = await fetchFeedback();
-    var givenLetters = "";
-    if (feedback == "true") {
-        alert("Correct!");
-        var attemptsLeft = 5 - attempt;
-        await updateScore(100 * attemptsLeft);
-        await startNewRound();
-    }
-    else if (feedback == "false") {
-        createNewAttempt(laststring);
-        alert("Ongeldig woord!");
+    var currentTime = new Date();
+    var timeDif = currentTime - lastAction;
+    console.log(currentTime + " - " + lastAction);
+    console.log(timeDif);
+    if (timeDif < 10000) {
+        //Gebruikt de fetch methode om feedback te halen uit het object ronde
+        const feedback = await fetchFeedback();
+        var givenLetters = "";
+        if (feedback == "true") {
+            alert("Correct!");
+            var attemptsLeft = 5 - attempt;
+            await updateScore(100 * attemptsLeft);
+            await startNewRound();
+        } else if (feedback == "false") {
+            createNewAttempt(laststring);
+            alert("Ongeldig woord!");
+        } else {
+            //Leest de feedback uit een veranderd kleuren en letters waar nodig
+            var letters = feedback.split('\n');
+            var totalScoreAddition = 0;
+
+            for (var i = 0; i < (letters.length - 1); i++) {
+                document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letters[i].charAt(0);
+                if (letters[i].includes("(correct)")) {
+                    givenLetters += letters[i].charAt(0);
+                    //Score +10 letter op de goede plaats zit
+                    totalScoreAddition += 10;
+                } else {
+                    if (letters[i].includes("(absent)")) {
+                        document.getElementById("attempt_" + attempt + "_" + i).style.backgroundColor = "red";
+                    } else {
+                        //Score +5 zodra er een letter aanwezig is
+                        totalScoreAddition += 5;
+                        document.getElementById("attempt_" + attempt + "_" + i).style.backgroundColor = "yellow";
+                    }
+                    givenLetters += "_";
+                }
+            }
+            await updateScore(totalScoreAddition);
+            await createNewAttempt(givenLetters);
+        }
     }
     else {
-        //Leest de feedback uit een veranderd kleuren en letters waar nodig
-        var letters = feedback.split('\n');
-        var totalScoreAddition = 0;
-
-        for(var i = 0; i < (letters.length - 1);i++){
-            document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letters[i].charAt(0);
-            if (letters[i].includes("(correct)")) {
-                givenLetters += letters[i].charAt(0);
-                //Score +10 letter op de goede plaats zit
-                totalScoreAddition += 10;
-            }
-            else {
-                if (letters[i].includes("(absent)")) {
-                    document.getElementById("attempt_" + attempt + "_" + i).style.backgroundColor = "red";
-                }
-                else {
-                    //Score +5 zodra er een letter aanwezig is
-                    totalScoreAddition += 5;
-                    document.getElementById("attempt_" + attempt + "_" + i).style.backgroundColor = "yellow";
-                }
-                givenLetters += "_";
-            }
-        }
-        await updateScore(totalScoreAddition);
-        await createNewAttempt(givenLetters);
+        await createNewAttempt(laststring);
+        alert("U heeft de 10 seconde denktijd overschreden.")
     }
     document.getElementById("word").value = "";
+    currentTime = new Date();
+    lastAction = currentTime;
 }
 
 //Functie om een game te beëindigen
@@ -223,6 +232,9 @@ async function startNewRound() {
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json',}, body: JSON.stringify(g) })
             .then(response => response.json())
             .then(function(gameInfo) { })
+        var today = new Date();
+        lastAction = today;
+        console.log(lastAction);
     }
     else {
         const g = await fetchGame();

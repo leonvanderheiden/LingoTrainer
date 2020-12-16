@@ -32,7 +32,7 @@ public class FilterWordsProcessor {
         this.wordFilter = wordFilter;
         this.wordWriter = wordWriter;
     }
-    
+
     public void processWords() throws IOException {
         List<String> allWords = wordReader.getWordsFromFile();
         List<String> validWords = wordFilter.getFilteredWords(allWords);
