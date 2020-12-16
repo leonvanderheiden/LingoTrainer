@@ -12,7 +12,7 @@ public class ScoreController {
     public ScoreServiceInterface scoreService;
 
     @GetMapping("/score/{id}")
-    public Score getScore(@PathVariable Long id) {
+    public Score getScoreById(@PathVariable Long id) {
         return scoreService.findById(id);
     }
 

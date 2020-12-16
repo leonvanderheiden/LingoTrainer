@@ -62,8 +62,6 @@ const fetchFeedback = async args => {
 async function enterWord(failed) {
     var currentTime = new Date();
     var timeDif = currentTime - lastAction;
-    console.log(currentTime + " - " + lastAction);
-    console.log(timeDif);
     if (timeDif < 10000) {
         //Gebruikt de fetch methode om feedback te halen uit het object ronde
         const feedback = await fetchFeedback();
@@ -234,7 +232,6 @@ async function startNewRound() {
             .then(function(gameInfo) { })
         var today = new Date();
         lastAction = today;
-        console.log(lastAction);
     }
     else {
         const g = await fetchGame();
