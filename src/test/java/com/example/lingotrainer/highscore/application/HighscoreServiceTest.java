@@ -1,6 +1,5 @@
 package com.example.lingotrainer.highscore.application;
 
-import com.example.lingotrainer.highscore.application.HighscoreService;
 import com.example.lingotrainer.highscore.data.HighscoreRepository;
 import com.example.lingotrainer.highscore.domain.Highscore;
 import org.junit.jupiter.api.DisplayName;
