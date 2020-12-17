@@ -2,11 +2,8 @@ package com.example.lingotrainer.game.presentation;
 
 import com.example.lingotrainer.game.application.GameServiceInterface;
 import com.example.lingotrainer.game.domain.Game;
-import com.example.lingotrainer.game.presentation.GameController;
-import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.score.domain.Score;
-import com.example.lingotrainer.word.application.WordServiceInterace;
 import com.example.lingotrainer.word.domain.Word;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -25,7 +22,6 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -83,7 +79,7 @@ public class GameControllerTest {
     public void updateGameTest() throws Exception {
         Game oldGame = createGame(500L, 1L, "5 letterwoord", "woord");
         Game newGame = createGame(500L, 2L, "6 letterwoord", "nieuwe");
-        
+
         given(gameService.updateById(any(), any())).willReturn(newGame);
 
         mvc.perform(MockMvcRequestBuilders

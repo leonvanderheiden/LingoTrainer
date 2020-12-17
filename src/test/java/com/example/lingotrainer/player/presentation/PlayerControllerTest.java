@@ -1,20 +1,26 @@
 package com.example.lingotrainer.player.presentation;
 
-import com.example.lingotrainer.highscore.application.HighscoreServiceInterface;
 import com.example.lingotrainer.highscore.domain.Highscore;
-import com.example.lingotrainer.player.domain.Player;
+import com.example.lingotrainer.player.application.PlayerService;
 import com.example.lingotrainer.player.application.PlayerServiceInterface;
+import com.example.lingotrainer.player.domain.Player;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.modelmapper.ModelMapper;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -26,11 +32,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(PlayerController.class)
 public class PlayerControllerTest {
-    @MockBean
-    private PlayerServiceInterface playerService;
 
     @MockBean
-    private HighscoreServiceInterface highscoreService;
+    private PlayerService playerService;
+
+    @MockBean
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     private MockMvc mvc;
@@ -39,7 +47,7 @@ public class PlayerControllerTest {
     public void getPlayerByIdTest() throws Exception {
         Player p = createPlayer(1L, "test", "pass", 1L, 500L);
 
-        given(playerService.findById(p.getId())).willReturn(p);
+        given(playerService.findById(any())).willReturn(p);
 
         mvc.perform(get("/player/" + p.getId())
                 .contentType(MediaType.APPLICATION_JSON))
@@ -93,7 +101,7 @@ public class PlayerControllerTest {
     }
 
     public static Player createPlayer(Long playerId, String name, String password,
-                                           Long highscoreId, Long highscore) {
+                                      Long highscoreId, Long highscore) {
         Player player = new Player();
         player.setId(playerId);
         player.setName(name);
@@ -105,6 +113,11 @@ public class PlayerControllerTest {
         player.setHighscore(highscoreObj);
 
         return player;
+    }
+
+    @BeforeEach
+    void init() {
+        ModelMapper modelMapper = new ModelMapper();
     }
 
     public static String asJsonString(final Object obj) {
