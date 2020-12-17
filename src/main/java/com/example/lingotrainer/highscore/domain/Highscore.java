@@ -21,6 +21,8 @@ public class Highscore {
         this.highscore = highscore;
     }
 
+    public Highscore(Long id, Long highscore) { this.id = id; this.highscore = highscore; }
+
     public Long getId() {
         return id;
     }
