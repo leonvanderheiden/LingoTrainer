@@ -35,6 +35,19 @@ public class ScoreControllerTest {
     private MockMvc mvc;
 
     @Test
+    public void getScoreByIdTest() throws Exception {
+        Score score = new Score(216L, 75L);
+
+        given(scoreService.findById(score.getId())).willReturn(score);
+
+        mvc.perform(get("/score/" + score.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.score").value(75l))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
     public void saveScoreTest() throws Exception {
         Score score = new Score(1L, 75L);
 
@@ -66,19 +79,6 @@ public class ScoreControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.score").value(100L));
-    }
-
-    @Test
-    public void getScoreByIdTest() throws Exception {
-        Score score = new Score(216L, 75L);
-
-        given(scoreService.findById(score.getId())).willReturn(score);
-
-        mvc.perform(get("/score/" + score.getId())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.score").value(75l))
-                .andDo(MockMvcResultHandlers.print());
     }
 
     public static String asJsonString(final Object obj) {

@@ -12,7 +12,7 @@ public class HighscoreController {
     public HighscoreServiceInterface highscoreService;
 
     @GetMapping("/highscore/{id}")
-    public Highscore getHighscore(@PathVariable Long id) {
+    public Highscore getHighscoreById(@PathVariable Long id) {
         return highscoreService.findById(id);
     }
 

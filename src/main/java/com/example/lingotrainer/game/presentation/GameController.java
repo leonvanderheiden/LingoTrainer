@@ -12,7 +12,7 @@ public class GameController {
     public GameServiceInterface gameService;
 
     @GetMapping("/game/{id}")
-    public Game getGame(@PathVariable Long id) {
+    public Game getGameById(@PathVariable Long id) {
         return gameService.findById(id);
     }
 

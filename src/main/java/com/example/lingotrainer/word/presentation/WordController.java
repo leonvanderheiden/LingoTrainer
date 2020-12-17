@@ -18,7 +18,7 @@ public class WordController {
     }
 
     @GetMapping("/word/{id}")
-    public Word getWord(@PathVariable Long id) {
+    public Word getWordById(@PathVariable Long id) {
         return wordService.findById(id);
     }
 
