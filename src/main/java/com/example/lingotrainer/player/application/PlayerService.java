@@ -1,4 +1,4 @@
-package com.example.lingotrainer.player.service;
+package com.example.lingotrainer.player.application;
 
 import com.example.lingotrainer.highscore.domain.Highscore;
 import com.example.lingotrainer.highscore.application.HighscoreServiceInterface;
@@ -61,7 +61,7 @@ public class PlayerService implements PlayerServiceInterface {
     }
 
     @Override
-    public Player update(Long playerid, Player player) {
+    public Player updateById(Long playerid, Player player) {
         Player p = playerRepository.findById(playerid).orElseThrow(() -> new PlayerNotFoundException(playerid));
 
         p.setName(player.getName());

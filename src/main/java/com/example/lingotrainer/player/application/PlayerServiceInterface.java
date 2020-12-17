@@ -1,4 +1,4 @@
-package com.example.lingotrainer.player.service;
+package com.example.lingotrainer.player.application;
 
 import com.example.lingotrainer.player.domain.Player;
 
@@ -11,7 +11,7 @@ public interface PlayerServiceInterface {
 
     Player save(Player player);
 
-    Player update(Long playerid, Player player);
+    Player updateById(Long playerid, Player player);
 
     Boolean deleteById(Long playerid);
 }

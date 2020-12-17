@@ -1,8 +1,8 @@
-package com.example.lingotrainer.player.controller;
+package com.example.lingotrainer.player.presentation;
 
 import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.domain.PlayerDto;
-import com.example.lingotrainer.player.service.PlayerServiceInterface;
+import com.example.lingotrainer.player.application.PlayerServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
@@ -48,7 +48,7 @@ public class PlayerController {
 
     @PutMapping("/player/{playerid}")
     public PlayerDto updatePlayer(@PathVariable Long playerid, @RequestBody Player player) {
-        return modelMapper.map(playerService.update(playerid, player), PlayerDto.class);
+        return modelMapper.map(playerService.updateById(playerid, player), PlayerDto.class);
     }
 
     @DeleteMapping("/player/{playerid}")
