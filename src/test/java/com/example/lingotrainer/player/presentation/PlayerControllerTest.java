@@ -43,6 +43,11 @@ public class PlayerControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @BeforeEach
+    void init() {
+        ModelMapper modelMapper = new ModelMapper();
+    }
+
     @Test
     public void getPlayerByIdTest() throws Exception {
         Player p = createPlayer(1L, "test", "pass", 1L, 500L);
@@ -113,11 +118,6 @@ public class PlayerControllerTest {
         player.setHighscore(highscoreObj);
 
         return player;
-    }
-
-    @BeforeEach
-    void init() {
-        ModelMapper modelMapper = new ModelMapper();
     }
 
     public static String asJsonString(final Object obj) {

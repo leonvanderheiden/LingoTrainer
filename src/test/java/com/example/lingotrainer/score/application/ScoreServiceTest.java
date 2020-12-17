@@ -2,57 +2,59 @@ package com.example.lingotrainer.score.application;
 
 import com.example.lingotrainer.score.data.ScoreRepository;
 import com.example.lingotrainer.score.domain.Score;
-import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.aspectj.bridge.MessageUtil.fail;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ScoreServiceTest {
 
     @Mock
-    @Autowired
     private ScoreRepository scoreRepository;
 
     @InjectMocks
-    @Autowired
     private ScoreService scoreService;
 
+    Score SCORE_A = new Score(10L, 40L);
+    Score SCORE_B = new Score(10L, 100L);
+
     @Test
-    @DisplayName("get an existing meeting")
-    void getExistingScore() {
-        Score SCORE_A = new Score();
-        SCORE_A.setScore(40L);
+    @DisplayName("get an existing score")
+    void findByIdTest() {
+        given(scoreRepository.findById(SCORE_A.getId())).willReturn(Optional.of(SCORE_A));
 
-        this.scoreService.save(SCORE_A);
-        //Score result = this.scoreService.findById(SCORE_A.getId());
+        Score expected = scoreService.findById(SCORE_A.getId());
 
-        //assertThat(result).hasFieldOrPropertyWithValue("score", 40L);
-
-        /*result.ifPresentOrElse(
-                (scoreResult) -> Assertions.assertEquals(SCORE_A, scoreResult),
-                () -> fail("Meeting should have been present")
-        );*/
+        assertEquals(expected, SCORE_A);
     }
 
-    @Before
-    public void init() {
-        MockitoAnnotations.initMocks(this);
+    @Test
+    @DisplayName("saving a new score")
+    void saveTest() {
+        when(scoreRepository.save(SCORE_A)).thenReturn(SCORE_A);
+
+        Score expected = scoreService.save(SCORE_A);
+
+        assertEquals(expected, SCORE_A);
     }
 
+    @Test
+    @DisplayName("updating an existing score")
+    void updateTest() {
+        given(scoreRepository.findById(SCORE_A.getId())).willReturn(Optional.of(SCORE_A));
+        when(scoreRepository.save(SCORE_A)).thenReturn(SCORE_B);
 
+        Score expected = scoreService.updateById(10L, SCORE_A);
+
+        assertEquals(expected, SCORE_B);
+    }
 }
