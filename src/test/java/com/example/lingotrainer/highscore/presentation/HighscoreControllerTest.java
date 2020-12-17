@@ -33,22 +33,19 @@ public class HighscoreControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Test
     public void getHighscoreByIdTest() throws Exception {
         Highscore highscore = new Highscore();
-        highscore.setId(9L);
-        highscore.setHighscore(640L);
+        highscore.setId(1L);
+        highscore.setHighscore(500L);
 
         given(highscoreService.findById(highscore.getId())).willReturn(highscore);
 
         ResultActions rs = mvc.perform(get("/highscore/" + highscore.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(9L))
-                .andExpect(jsonPath("$.highscore").value(640L))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.highscore").value(500L))
                 .andDo(MockMvcResultHandlers.print());
     }
 }

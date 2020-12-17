@@ -16,10 +16,11 @@ public class ScoreController {
         return scoreService.findById(id);
     }
 
-    @PostMapping(
+    /*@PostMapping(
             value = "/score",
             consumes = "application/json",
-            produces = "application/json")
+            produces = "application/json")*/
+    @RequestMapping(value = { "/score" }, method = { RequestMethod.POST } )
     public Score saveScore(@RequestBody Score score) {
         return scoreService.save(score);
     }

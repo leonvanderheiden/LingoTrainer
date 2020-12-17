@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.RequestEntity.post;
@@ -35,32 +36,36 @@ public class ScoreControllerTest {
 
     @Test
     public void saveScoreTest() throws Exception {
-        Score score = new Score();
-        score.setScore(75L);
+        Score score = new Score(1L, 75L);
 
-        given(scoreService.save(score)).willReturn(score);
+        when(scoreService.save(any())).thenReturn(score);
 
         mvc.perform( MockMvcRequestBuilders
                 .post("/score")
                 .content(asJsonString(score))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.score").value(75L));
     }
 
     @Test
     public void updateScoreTest() throws Exception
     {
+        Score oldScoreObject = new Score(2L, 50L);
         Score newScoreObject = new Score(2L, 100L);
 
+        given(scoreService.updateById(any(), any())).willReturn(newScoreObject);
+
         mvc.perform(MockMvcRequestBuilders
-                .put("/score/{id}", 2)
-                .content(asJsonString(newScoreObject))
+                .put("/score/{id}", 2L)
+                .content(asJsonString(oldScoreObject))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is2xxSuccessful());
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.score").value(100L));
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.score").value(100L));
     }
 
     @Test

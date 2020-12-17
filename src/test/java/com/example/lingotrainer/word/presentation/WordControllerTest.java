@@ -28,17 +28,17 @@ public class WordControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void getRoundByIdTest() throws Exception {
-        Word word = new Word("doods");
-        word.setId(3539L);
+    public void getWordByIdTest() throws Exception {
+        Word word = new Word("super");
+        word.setId(15167L);
 
         given(wordService.findById(word.getId())).willReturn(word);
 
         mvc.perform(get("/word/" + word.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(3539L))
-                .andExpect(jsonPath("$.word").value("doods"))
+                .andExpect(jsonPath("$.id").value(15167L))
+                .andExpect(jsonPath("$.word").value("super"))
                 .andDo(MockMvcResultHandlers.print());
     }
 }
