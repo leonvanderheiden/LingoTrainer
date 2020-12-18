@@ -14,6 +14,12 @@ public class PlayerDto {
 
     private Highscore highscore;
 
+    public PlayerDto(Long id, String name, Highscore highscore) {
+        this.id = id;
+        this.name = name;
+        this.highscore = highscore;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package com.example.lingotrainer.player.application;
 
 import com.example.lingotrainer.game.domain.Game;
+import com.example.lingotrainer.highscore.data.HighscoreRepository;
 import com.example.lingotrainer.highscore.domain.Highscore;
 import com.example.lingotrainer.player.application.PlayerService;
 import com.example.lingotrainer.player.data.PlayerRepository;
@@ -18,15 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class PlayerServiceTest {
 
     @Mock
     private PlayerRepository playerRepository;
+
+    @Mock
+    private HighscoreRepository highscoreRepository;
 
     @InjectMocks
     private PlayerService playerService;
@@ -40,7 +46,7 @@ public class PlayerServiceTest {
     List<Game> gameList_B = new ArrayList<>();
     Player PLAYER_A = new Player(1L, HIGHSCORE_A, "test", "password");
     Player PLAYER_B = new Player(1L, HIGHSCORE_A, "test", "password123");
-
+    Player PLAYER_C = new Player(2L, HIGHSCORE_A, "new", "password");
     @BeforeEach
     void init() {
         gameList_A.clear();
@@ -60,6 +66,27 @@ public class PlayerServiceTest {
         given(playerRepository.findById(PLAYER_A.getId())).willReturn(Optional.of(PLAYER_A));
 
         Player expected = playerService.findById(PLAYER_A.getId());
+
+        assertEquals(expected, PLAYER_A);
+    }
+
+    @Test
+    @DisplayName("getting an existing player by name")
+    void findByNameTest() {
+        when(playerRepository.findByNameIs(PLAYER_A.getName())).thenReturn(PLAYER_A);
+
+        Player expected = playerService.findByName(PLAYER_A.getName());
+
+        assertEquals(expected, PLAYER_A);
+    }
+
+    @Test
+    @DisplayName("getting an existing player by name and password")
+    void findByNameAndPasswordTest() {
+        when(playerRepository.existsByName(PLAYER_A.getName())).thenReturn(true);
+        when(playerRepository.findByNameIs(PLAYER_A.getName())).thenReturn(PLAYER_A);
+
+        Player expected = playerService.findByNameAndPassword(PLAYER_A);
 
         assertEquals(expected, PLAYER_A);
     }

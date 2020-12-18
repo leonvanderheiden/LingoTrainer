@@ -3,11 +3,13 @@ package com.example.lingotrainer.game.application;
 import com.example.lingotrainer.game.domain.Game;
 import com.example.lingotrainer.game.data.GameRepository;
 import com.example.lingotrainer.game.exceptions.GameNotFoundException;
+import com.example.lingotrainer.player.application.PlayerService;
 import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.application.PlayerServiceInterface;
 import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class GameService implements GameServiceInterface {
@@ -18,8 +20,9 @@ public class GameService implements GameServiceInterface {
     @Autowired
     private PlayerServiceInterface playerService;
 
-    public GameService(GameRepository gameRepository) {
+    public GameService(GameRepository gameRepository, PlayerServiceInterface playerService) {
         this.gameRepository = gameRepository;
+        this.playerService = playerService;
     }
 
     @Override

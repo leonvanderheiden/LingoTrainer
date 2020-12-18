@@ -18,9 +18,7 @@ public class WordService implements WordServiceInterace {
     WordRepository wordRepository;
 
     @Autowired
-    public WordService() {
-
-    }
+    public WordService() { }
 
     @Override
     public Word findById(long wordid) {

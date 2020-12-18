@@ -2,6 +2,9 @@ package com.example.lingotrainer.game.application;
 
 import com.example.lingotrainer.game.data.GameRepository;
 import com.example.lingotrainer.game.domain.Game;
+import com.example.lingotrainer.highscore.domain.Highscore;
+import com.example.lingotrainer.player.application.PlayerService;
+import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.word.domain.Word;
@@ -20,12 +23,16 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceTest {
 
     @Mock
     private GameRepository gameRepository;
+
+    @Mock
+    private PlayerService playerService;
 
     @InjectMocks
     private GameService gameService;
@@ -39,6 +46,7 @@ public class GameServiceTest {
     List<Round> roundList_B = new ArrayList<>();
     Game GAME_A = new Game(10L, SCORE_A);
     Game GAME_B = new Game(10L, SCORE_A);
+    Player PLAYER_A = new Player(1L, new Highscore(1L, 500L), "test", "password");
 
     @BeforeEach
     void init() {
@@ -71,6 +79,19 @@ public class GameServiceTest {
         Game expected = gameService.save(GAME_A);
 
         assertEquals(expected, GAME_A);
+    }
+
+    @Test
+    @DisplayName("saving a game to a player")
+    void saveGameToPlayerTest() {
+        Game newGame = GAME_A;
+        newGame.setPlayer(PLAYER_A);
+        when(playerService.findById(any())).thenReturn(PLAYER_A);
+        when(gameRepository.save(GAME_A)).thenReturn(newGame);
+
+        Game expected = gameService.saveGameToPlayer(1L, GAME_A);
+
+        assertEquals(expected, newGame);
     }
 
     @Test
