@@ -4,6 +4,7 @@ import com.example.lingotrainer.word.application.WordServiceInterace;
 import com.example.lingotrainer.word.domain.Word;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -33,6 +34,7 @@ public class WordControllerTest {
     private MockMvc mvc;
 
     @Test
+    @DisplayName("getting an existing word by id")
     public void getWordByIdTest() throws Exception {
         Word word = new Word("super");
         word.setId(15167L);
@@ -48,7 +50,8 @@ public class WordControllerTest {
     }
 
     @Test
-    public void saveScoreTest() throws Exception {
+    @DisplayName("saving a new word")
+    public void saveWordTest() throws Exception {
         Word word = new Word("super");
         word.setId(15167L);
 
@@ -65,6 +68,7 @@ public class WordControllerTest {
     }
 
     @Test
+    @DisplayName("updating an existing word")
     public void updateWordTest() throws Exception
     {
         Word oldWord = new Word("super"); oldWord.setId(15167L);

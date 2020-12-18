@@ -7,6 +7,7 @@ import com.example.lingotrainer.player.domain.Player;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -49,6 +50,7 @@ public class PlayerControllerTest {
     }
 
     @Test
+    @DisplayName("getting an existing player by id")
     public void getPlayerByIdTest() throws Exception {
         Player p = createPlayer(1L, "test", "pass", 1L, 500L);
 
@@ -66,7 +68,8 @@ public class PlayerControllerTest {
     }
 
     @Test
-    public void saveScoreTest() throws Exception {
+    @DisplayName("saving a new player")
+    public void savePlayerTest() throws Exception {
         Player p = createPlayer(1L, "test", "pass", 1L, 500L);
 
         when(playerService.save(any())).thenReturn(p);
@@ -85,7 +88,8 @@ public class PlayerControllerTest {
     }
 
     @Test
-    public void updateWordTest() throws Exception
+    @DisplayName("updating an existing player")
+    public void updatePlayerTest() throws Exception
     {
         Player oldPlayer = createPlayer(1L, "test", "pass", 1L, 500L);
         Player newPlayer = createPlayer(1L, "test", "pass123", 2L, 900L);

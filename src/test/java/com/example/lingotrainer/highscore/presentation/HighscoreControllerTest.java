@@ -4,6 +4,7 @@ import com.example.lingotrainer.highscore.application.HighscoreServiceInterface;
 import com.example.lingotrainer.highscore.domain.Highscore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,6 +35,7 @@ public class HighscoreControllerTest {
     private MockMvc mvc;
 
     @Test
+    @DisplayName("getting an existing highscore by id")
     public void getHighscoreByIdTest() throws Exception {
         Highscore highscore = new Highscore();
         highscore.setId(1L);
@@ -50,6 +52,7 @@ public class HighscoreControllerTest {
     }
 
     @Test
+    @DisplayName("saving a new highscore")
     public void saveHighScoreTest() throws Exception {
         Highscore highscore = new Highscore();
         highscore.setId(1L);
@@ -68,6 +71,7 @@ public class HighscoreControllerTest {
     }
 
     @Test
+    @DisplayName("updating an existing highscore")
     public void updateHighscoreTest() throws Exception
     {
         Highscore oldHighscore = new Highscore();

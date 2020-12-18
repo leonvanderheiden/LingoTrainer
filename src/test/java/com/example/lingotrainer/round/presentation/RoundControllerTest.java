@@ -6,6 +6,7 @@ import com.example.lingotrainer.word.application.WordServiceInterace;
 import com.example.lingotrainer.word.domain.Word;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -37,6 +38,7 @@ public class RoundControllerTest {
     private MockMvc mvc;
 
     @Test
+    @DisplayName("getting an existing round by id")
     public void getRoundByIdTest() throws Exception {
         Round round = createRoundObject(1L, "5 letterwoord", 15167L, "super");
 
@@ -53,7 +55,8 @@ public class RoundControllerTest {
     }
 
     @Test
-    public void saveScoreTest() throws Exception {
+    @DisplayName("saving a new round")
+    public void saveRoundTest() throws Exception {
         Round round = createRoundObject(1L, "5 letterwoord", 15167L, "super");
 
         when(roundService.save(any())).thenReturn(round);
@@ -71,7 +74,8 @@ public class RoundControllerTest {
     }
 
     @Test
-    public void updateWordTest() throws Exception
+    @DisplayName("updating an existing round")
+    public void updateRoundTest() throws Exception
     {
         Round oldRound = createRoundObject(1L, "5 letterwoord", 15167L, "super");
         Round newRound = createRoundObject(1L, "6 letterwoord", 1L, "topper");

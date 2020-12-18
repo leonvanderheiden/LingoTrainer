@@ -1,12 +1,10 @@
 package com.example.lingotrainer.game.application;
 
-import com.example.lingotrainer.game.application.GameService;
 import com.example.lingotrainer.game.data.GameRepository;
 import com.example.lingotrainer.game.domain.Game;
 import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.word.domain.Word;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,8 +42,8 @@ public class GameServiceTest {
 
     @BeforeEach
     void init() {
-        GAME_A.getRounds().clear();
-        GAME_B.getRounds().clear();
+        roundList_A.clear();
+        roundList_B.clear();
 
         roundList_A.add(ROUND_A);
         roundList_B.add(ROUND_A);

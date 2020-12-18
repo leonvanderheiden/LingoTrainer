@@ -1,30 +1,64 @@
 package com.example.lingotrainer.round.application;
 
-import static org.junit.Assert.assertEquals;
+import com.example.lingotrainer.round.application.RoundService;
+import com.example.lingotrainer.round.data.RoundRepository;
+import com.example.lingotrainer.round.domain.Round;
+import com.example.lingotrainer.word.domain.Word;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class RoundServiceTest {
-    /*private RoundService roundService;
 
-    @Autowired
-    private WordRepository wordRepository;
+    @Mock
+    private RoundRepository roundRepository;
 
-    private static Stream<Arguments> provideWordResult() {
-        Word word = new Word("boven");
-        Round round = new Round(0L, "5 letterwoord", word);
+    @InjectMocks
+    private RoundService roundService;
 
+    Word WORD_A = new Word(1L, "woord");
+    Word WORD_B = new Word(2L, "topper");
+    Round ROUND_A = new Round(1L, "5 letterwoord", WORD_A);
+    Round ROUND_B = new Round(1L, "6 letterwoord", WORD_B);
 
-        return Stream.of(
-                Arguments.of("fout", round, "false")
-        );
+    @Test
+    @DisplayName("get an existing round")
+    void findByIdTest() {
+        given(roundRepository.findById(ROUND_A.getId())).willReturn(Optional.of(ROUND_A));
+
+        Round expected = roundService.findById(ROUND_A.getId());
+
+        assertEquals(expected, ROUND_A);
     }
 
-    @ParameterizedTest
-    @MethodSource("provideWordResult")
-    public void getFeedbackTest(String attempt, Round round, String expectedresult) {
-        roundService = new RoundService();
+    @Test
+    @DisplayName("saving a new round")
+    void saveTest() {
+        when(roundRepository.save(ROUND_A)).thenReturn(ROUND_A);
 
-        String result = roundService.getFeedback(attempt, round);
+        Round expected = roundService.save(ROUND_A);
 
-        assertEquals(expectedresult, result);
-    }*/
+        assertEquals(expected, ROUND_A);
+    }
+
+    @Test
+    @DisplayName("updating an existing round")
+    void updateTest() {
+        given(roundRepository.findById(ROUND_A.getId())).willReturn(Optional.of(ROUND_A));
+        when(roundRepository.save(ROUND_A)).thenReturn(ROUND_B);
+
+        Round expected = roundService.updateById(1L, ROUND_A);
+
+        assertEquals(expected, ROUND_B);
+    }
 }

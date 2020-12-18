@@ -4,6 +4,7 @@ import com.example.lingotrainer.score.application.ScoreServiceInterface;
 import com.example.lingotrainer.score.domain.Score;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,6 +36,7 @@ public class ScoreControllerTest {
     private MockMvc mvc;
 
     @Test
+    @DisplayName("getting an existing score by id")
     public void getScoreByIdTest() throws Exception {
         Score score = new Score(216L, 75L);
 
@@ -48,6 +50,7 @@ public class ScoreControllerTest {
     }
 
     @Test
+    @DisplayName("saving a new score")
     public void saveScoreTest() throws Exception {
         Score score = new Score(1L, 75L);
 
@@ -64,6 +67,7 @@ public class ScoreControllerTest {
     }
 
     @Test
+    @DisplayName("updating an existing score")
     public void updateScoreTest() throws Exception
     {
         Score oldScoreObject = new Score(2L, 50L);

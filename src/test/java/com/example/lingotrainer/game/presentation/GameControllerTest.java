@@ -7,6 +7,7 @@ import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.word.domain.Word;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,7 +37,8 @@ public class GameControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void getWordByIdTest() throws Exception {
+    @DisplayName("getting an existing game by id")
+    public void getGameByIdTest() throws Exception {
         Game game = createGame(500L, 1L, "5 letterwoord", "woord");
 
         given(gameService.findById(game.getId())).willReturn(game);
@@ -55,6 +57,7 @@ public class GameControllerTest {
     }
 
     @Test
+    @DisplayName("saving a new game")
     public void saveGameTest() throws Exception {
         Game game = createGame(500L, 1L, "5 letterwoord", "woord");
 
@@ -76,6 +79,7 @@ public class GameControllerTest {
     }
 
     @Test
+    @DisplayName("updating an existing game")
     public void updateGameTest() throws Exception {
         Game oldGame = createGame(500L, 1L, "5 letterwoord", "woord");
         Game newGame = createGame(500L, 2L, "6 letterwoord", "nieuwe");
