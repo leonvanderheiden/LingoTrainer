@@ -1,6 +1,7 @@
 package com.example.lingotrainer.player.application;
 
 import com.example.lingotrainer.game.domain.Game;
+import com.example.lingotrainer.highscore.application.HighscoreService;
 import com.example.lingotrainer.highscore.data.HighscoreRepository;
 import com.example.lingotrainer.highscore.domain.Highscore;
 import com.example.lingotrainer.player.application.PlayerService;
@@ -32,7 +33,7 @@ public class PlayerServiceTest {
     private PlayerRepository playerRepository;
 
     @Mock
-    private HighscoreRepository highscoreRepository;
+    private HighscoreService highscoreService;
 
     @InjectMocks
     private PlayerService playerService;
@@ -85,6 +86,18 @@ public class PlayerServiceTest {
     void findByNameAndPasswordTest() {
         when(playerRepository.existsByName(PLAYER_A.getName())).thenReturn(true);
         when(playerRepository.findByNameIs(PLAYER_A.getName())).thenReturn(PLAYER_A);
+
+        Player expected = playerService.findByNameAndPassword(PLAYER_A);
+
+        assertEquals(expected, PLAYER_A);
+    }
+
+    @Test
+    @DisplayName("getting an existing player by name and password")
+    void findByNameAndPasswordCreationTest() {
+        Highscore newScore = new Highscore(1L, 0L);
+        when(playerRepository.existsByName(PLAYER_A.getName())).thenReturn(false);
+        when(highscoreService.save(any())).thenReturn(newScore);
 
         Player expected = playerService.findByNameAndPassword(PLAYER_A);
 

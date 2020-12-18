@@ -1,5 +1,6 @@
 package com.example.lingotrainer.player.application;
 
+import com.example.lingotrainer.highscore.application.HighscoreService;
 import com.example.lingotrainer.highscore.application.HighscoreServiceInterface;
 import com.example.lingotrainer.highscore.domain.Highscore;
 import com.example.lingotrainer.player.data.PlayerRepository;
@@ -18,8 +19,9 @@ public class PlayerService implements PlayerServiceInterface {
     @Autowired
     private HighscoreServiceInterface highscoreService;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, HighscoreServiceInterface highscoreService) {
         this.playerRepository = playerRepository;
+        this.highscoreService = highscoreService;
     }
 
     @Override
