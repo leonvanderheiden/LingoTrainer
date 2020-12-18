@@ -57,4 +57,14 @@ public class HighscoreServiceTest {
 
         assertEquals(expected, HIGHSCORE_B);
     }
+
+    @Test
+    @DisplayName("deleting an existing highscore by id")
+    void deleteById() {
+        given(highscoreRepository.findById(HIGHSCORE_A.getId())).willReturn(Optional.of(HIGHSCORE_A));
+
+        Boolean expected = highscoreService.deleteById(1L);
+
+        assertEquals(expected, true);
+    }
 }

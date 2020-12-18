@@ -34,6 +34,10 @@ public class HighscoreService implements HighscoreServiceInterface {
 
     @Override
     public Boolean deleteById(Long highscoreid) {
-        return highscoreRepository.deleteDistinctById(highscoreid);
+        Highscore h = highscoreRepository.findById(highscoreid).orElseThrow(() -> new ScoreNotFoundException(highscoreid));
+        if (h != null) {
+            highscoreRepository.deleteById(h.getId());
+        }
+        return (h != null);
     }
 }

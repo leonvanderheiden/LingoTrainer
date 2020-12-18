@@ -57,4 +57,14 @@ public class ScoreServiceTest {
 
         assertEquals(expected, SCORE_B);
     }
+
+    @Test
+    @DisplayName("deleting an existing score by id")
+    void deleteById() {
+        given(scoreRepository.findById(SCORE_A.getId())).willReturn(Optional.of(SCORE_A));
+
+        Boolean expected = scoreService.deleteById(10L);
+
+        assertEquals(expected, true);
+    }
 }

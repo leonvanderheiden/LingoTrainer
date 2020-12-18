@@ -57,4 +57,14 @@ public class WordServiceTest {
 
         assertEquals(expected, WORD_B);
     }
+
+    @Test
+    @DisplayName("deleting an existing word by id")
+    void deleteById() {
+        given(wordRepository.findById(WORD_A.getId())).willReturn(Optional.of(WORD_A));
+
+        Boolean expected = wordService.deleteById(1L);
+
+        assertEquals(expected, true);
+    }
 }

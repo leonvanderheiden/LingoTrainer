@@ -61,4 +61,14 @@ public class RoundServiceTest {
 
         assertEquals(expected, ROUND_B);
     }
+
+    @Test
+    @DisplayName("deleting an existing round by id")
+    void deleteById() {
+        given(roundRepository.findById(ROUND_A.getId())).willReturn(Optional.of(ROUND_A));
+
+        Boolean expected = roundService.deleteById(1L);
+
+        assertEquals(expected, true);
+    }
 }

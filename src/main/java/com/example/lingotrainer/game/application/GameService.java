@@ -5,6 +5,7 @@ import com.example.lingotrainer.game.data.GameRepository;
 import com.example.lingotrainer.game.exceptions.GameNotFoundException;
 import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.application.PlayerServiceInterface;
+import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,10 @@ public class GameService implements GameServiceInterface {
 
     @Override
     public Boolean deleteById(Long gameid) {
-        return gameRepository.deleteDistinctById(gameid);
+        Game g = gameRepository.findById(gameid).orElseThrow(() -> new ScoreNotFoundException(gameid));
+        if (g != null) {
+            gameRepository.deleteById(g.getId());
+        }
+        return (g != null);
     }
 }

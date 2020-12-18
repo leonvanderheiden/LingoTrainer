@@ -31,7 +31,7 @@ public class ScoreController {
     }
 
     @DeleteMapping("/score/{scoreid}")
-    public Boolean deleteScore(@PathVariable Long scoreid) {
+    public Boolean deleteScoreById(@PathVariable Long scoreid) {
         return scoreService.deleteById(scoreid);
     }
 }

@@ -1,10 +1,11 @@
 package com.example.lingotrainer.player.application;
 
-import com.example.lingotrainer.highscore.domain.Highscore;
 import com.example.lingotrainer.highscore.application.HighscoreServiceInterface;
-import com.example.lingotrainer.player.domain.Player;
+import com.example.lingotrainer.highscore.domain.Highscore;
 import com.example.lingotrainer.player.data.PlayerRepository;
+import com.example.lingotrainer.player.domain.Player;
 import com.example.lingotrainer.player.exceptions.PlayerNotFoundException;
+import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +73,10 @@ public class PlayerService implements PlayerServiceInterface {
 
     @Override
     public Boolean deleteById(Long playerid) {
-        return playerRepository.deleteDistinctById(playerid);
+        Player p = playerRepository.findById(playerid).orElseThrow(() -> new ScoreNotFoundException(playerid));
+        if (p != null) {
+            playerRepository.deleteById(p.getId());
+        }
+        return (p != null);
     }
 }

@@ -85,6 +85,13 @@ public class ScoreControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.score").value(100L));
     }
 
+    @Test
+    @DisplayName("deleting an existing score")
+    public void deleteScoreTest() throws Exception
+    {
+
+    }
+
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);

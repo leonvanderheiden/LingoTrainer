@@ -83,4 +83,14 @@ public class GameServiceTest {
 
         assertEquals(expected, GAME_B);
     }
+
+    @Test
+    @DisplayName("deleting an existing game by id")
+    void deleteById() {
+        given(gameRepository.findById(GAME_A.getId())).willReturn(Optional.of(GAME_A));
+
+        Boolean expected = gameService.deleteById(10L);
+
+        assertEquals(expected, true);
+    }
 }

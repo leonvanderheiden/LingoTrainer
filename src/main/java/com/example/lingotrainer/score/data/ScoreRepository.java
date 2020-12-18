@@ -7,6 +7,4 @@ import javax.transaction.Transactional;
 
 public interface ScoreRepository extends JpaRepository<Score, Long> {
 
-    @Transactional
-    Boolean deleteDistinctById(Long scoreid);
 }

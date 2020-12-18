@@ -1,6 +1,7 @@
 package com.example.lingotrainer.word.application;
 
 import com.example.lingotrainer.round.exceptions.RoundNotFoundException;
+import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import com.example.lingotrainer.word.domain.Word;
 import com.example.lingotrainer.word.data.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,11 @@ public class WordService implements WordServiceInterace {
 
     @Override
     public Boolean deleteById(Long wordid) {
-        return wordRepository.deleteDistinctById(wordid);
+        Word w = wordRepository.findById(wordid).orElseThrow(() -> new ScoreNotFoundException(wordid));
+        if (w != null) {
+            wordRepository.deleteById(w.getId());
+        }
+        return (w != null);
     }
 
     @Override

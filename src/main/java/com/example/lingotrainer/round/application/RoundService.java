@@ -1,8 +1,9 @@
 package com.example.lingotrainer.round.application;
 
-import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.data.RoundRepository;
+import com.example.lingotrainer.round.domain.Round;
 import com.example.lingotrainer.round.exceptions.RoundNotFoundException;
+import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import com.example.lingotrainer.word.data.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,6 +93,10 @@ public class RoundService implements RoundServiceInterface {
 
     @Override
     public Boolean deleteById(Long roundid) {
-        return roundRepository.deleteDistinctById(roundid);
+        Round r = roundRepository.findById(roundid).orElseThrow(() -> new ScoreNotFoundException(roundid));
+        if (r != null) {
+            roundRepository.deleteById(r.getId());
+        }
+        return (r != null);
     }
 }

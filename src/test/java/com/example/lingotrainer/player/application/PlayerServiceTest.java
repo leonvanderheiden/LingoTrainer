@@ -84,4 +84,14 @@ public class PlayerServiceTest {
 
         assertEquals(expected, PLAYER_B);
     }
+
+    @Test
+    @DisplayName("deleting an existing player by id")
+    void deleteById() {
+        given(playerRepository.findById(PLAYER_A.getId())).willReturn(Optional.of(PLAYER_A));
+
+        Boolean expected = playerService.deleteById(1L);
+
+        assertEquals(expected, true);
+    }
 }

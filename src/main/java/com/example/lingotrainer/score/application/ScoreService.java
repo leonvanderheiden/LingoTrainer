@@ -40,6 +40,10 @@ public class ScoreService implements ScoreServiceInterface {
 
     @Override
     public Boolean deleteById(Long scoreid) {
-        return scoreRepository.deleteDistinctById(scoreid);
+        Score s = scoreRepository.findById(scoreid).orElseThrow(() -> new ScoreNotFoundException(scoreid));
+        if (s != null) {
+            scoreRepository.deleteById(s.getId());
+        }
+        return (s != null);
     }
 }
