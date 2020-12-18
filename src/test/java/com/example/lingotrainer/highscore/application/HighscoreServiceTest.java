@@ -17,6 +17,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class HighscoreServiceTest {
+
     @Mock
     private HighscoreRepository highscoreRepository;
 

@@ -31,6 +31,13 @@ public class Game {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Player player;
 
+    public Game() { }
+
+    public Game(Long id, Score score) {
+        this.id = id;
+        this.score = score;
+    }
+
     public Long getId() {
         return id;
     }
