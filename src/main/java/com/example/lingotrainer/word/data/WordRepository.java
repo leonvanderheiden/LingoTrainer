@@ -13,7 +13,4 @@ public interface WordRepository extends JpaRepository<Word, Long> {
 
     @Transactional
     List<Word> getAllByIdNotNull();
-
-    @Transactional
-    Boolean deleteDistinctById(Long wordid);
 }
