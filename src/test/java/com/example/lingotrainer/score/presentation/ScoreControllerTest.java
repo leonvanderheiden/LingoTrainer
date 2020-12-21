@@ -35,30 +35,31 @@ public class ScoreControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    Score SCORE_A = new Score(2L, 50L);
+    Score SCORE_B = new Score(2L, 100L);
+
     @Test
     @DisplayName("getting an existing score by id")
     public void getScoreByIdTest() throws Exception {
-        Score score = new Score(216L, 75L);
 
-        given(scoreService.findById(score.getId())).willReturn(score);
+        given(scoreService.findById(SCORE_A.getId())).willReturn(SCORE_A);
 
-        mvc.perform(get("/score/" + score.getId())
+        mvc.perform(get("/score/" + SCORE_A.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.score").value(75l))
+                .andExpect(jsonPath("$.score").value(50l))
                 .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     @DisplayName("saving a new score")
     public void saveScoreTest() throws Exception {
-        Score score = new Score(1L, 75L);
 
-        when(scoreService.save(any())).thenReturn(score);
+        when(scoreService.save(any())).thenReturn(SCORE_A);
 
         mvc.perform( MockMvcRequestBuilders
                 .post("/score")
-                .content(asJsonString(score))
+                .content(asJsonString(SCORE_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -70,14 +71,11 @@ public class ScoreControllerTest {
     @DisplayName("updating an existing score")
     public void updateScoreTest() throws Exception
     {
-        Score oldScoreObject = new Score(2L, 50L);
-        Score newScoreObject = new Score(2L, 100L);
-
-        given(scoreService.updateById(any(), any())).willReturn(newScoreObject);
+        given(scoreService.updateById(any(), any())).willReturn(SCORE_B);
 
         mvc.perform(MockMvcRequestBuilders
                 .put("/score/{id}", 2L)
-                .content(asJsonString(oldScoreObject))
+                .content(asJsonString(SCORE_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())

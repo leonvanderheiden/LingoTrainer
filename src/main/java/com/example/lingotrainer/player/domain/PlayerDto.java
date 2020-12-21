@@ -14,6 +14,8 @@ public class PlayerDto {
 
     private Highscore highscore;
 
+    public PlayerDto() { }
+
     public PlayerDto(Long id, String name, Highscore highscore) {
         this.id = id;
         this.name = name;

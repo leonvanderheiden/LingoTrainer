@@ -37,14 +37,18 @@ public class RoundControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    Word WORD_A = new Word(15167L, "super");
+    Word WORD_B = new Word(1L, "topper");
+    Round ROUND_A = new Round(1L, "5 letterwoord", WORD_A);
+    Round ROUND_B = new Round(2L, "6 letterwoord", WORD_B);
+
     @Test
     @DisplayName("getting an existing round by id")
     public void getRoundByIdTest() throws Exception {
-        Round round = createRoundObject(1L, "5 letterwoord", 15167L, "super");
 
-        given(roundService.findById(round.getId())).willReturn(round);
+        given(roundService.findById(ROUND_A.getId())).willReturn(ROUND_A);
 
-        mvc.perform(get("/round/" + round.getId())
+        mvc.perform(get("/round/" + ROUND_A.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
@@ -57,13 +61,12 @@ public class RoundControllerTest {
     @Test
     @DisplayName("saving a new round")
     public void saveRoundTest() throws Exception {
-        Round round = createRoundObject(1L, "5 letterwoord", 15167L, "super");
 
-        when(roundService.save(any())).thenReturn(round);
+        when(roundService.save(any())).thenReturn(ROUND_A);
 
         mvc.perform( MockMvcRequestBuilders
                 .post("/round")
-                .content(asJsonString(round))
+                .content(asJsonString(ROUND_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -77,32 +80,18 @@ public class RoundControllerTest {
     @DisplayName("updating an existing round")
     public void updateRoundTest() throws Exception
     {
-        Round oldRound = createRoundObject(1L, "5 letterwoord", 15167L, "super");
-        Round newRound = createRoundObject(1L, "6 letterwoord", 1L, "topper");
-
-        given(roundService.updateById(any(), any())).willReturn(newRound);
+        given(roundService.updateById(any(), any())).willReturn(ROUND_B);
 
         mvc.perform(MockMvcRequestBuilders
                 .put("/round/{id}", 1L)
-                .content(asJsonString(oldRound))
+                .content(asJsonString(ROUND_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.id").value(2L))
                 .andExpect(jsonPath("$.roundType").value("6 letterwoord"))
                 .andExpect(jsonPath("$.word.id").value(1L))
                 .andExpect(jsonPath("$.word.word").value("topper"));
-    }
-
-    public static Round createRoundObject(Long roundId, String roundType, Long wordId, String word) {
-        Round round = new Round();
-        round.setRoundType(roundType);
-        round.setId(roundId);
-
-        Word wordObj = new Word(word);
-        wordObj.setId(wordId);
-        round.setWord(wordObj);
-        return round;
     }
 
     public static String asJsonString(final Object obj) {

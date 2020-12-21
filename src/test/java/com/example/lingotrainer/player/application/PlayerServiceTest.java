@@ -98,10 +98,12 @@ public class PlayerServiceTest {
         Highscore newScore = new Highscore(1L, 0L);
         when(playerRepository.existsByName(PLAYER_A.getName())).thenReturn(false);
         when(highscoreService.save(any())).thenReturn(newScore);
+        PLAYER_A.setHighscore(newScore);
+        when(playerRepository.save(any())).thenReturn(PLAYER_A);
 
         Player expected = playerService.findByNameAndPassword(PLAYER_A);
 
-        assertEquals(expected, PLAYER_A);
+        assertEquals(expected.getHighscore(), newScore);
     }
 
     @Test

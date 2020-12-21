@@ -38,6 +38,12 @@ public class Game {
         this.score = score;
     }
 
+    public Game(Long id, Score score, List<Round> roundList) {
+        this.id = id;
+        this.score = score;
+        this.rounds = roundList;
+    }
+
     public Long getId() {
         return id;
     }

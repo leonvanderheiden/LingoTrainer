@@ -34,16 +34,16 @@ public class HighscoreControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    Highscore HIGHSCORE_A = new Highscore(1L, 500L);
+    Highscore HIGHSCORE_B = new Highscore(1L, 1000L);
+
     @Test
     @DisplayName("getting an existing highscore by id")
     public void getHighscoreByIdTest() throws Exception {
-        Highscore highscore = new Highscore();
-        highscore.setId(1L);
-        highscore.setHighscore(500L);
 
-        given(highscoreService.findById(highscore.getId())).willReturn(highscore);
+        given(highscoreService.findById(HIGHSCORE_A.getId())).willReturn(HIGHSCORE_A);
 
-        ResultActions rs = mvc.perform(get("/highscore/" + highscore.getId())
+        ResultActions rs = mvc.perform(get("/highscore/" + HIGHSCORE_A.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
@@ -54,15 +54,12 @@ public class HighscoreControllerTest {
     @Test
     @DisplayName("saving a new highscore")
     public void saveHighScoreTest() throws Exception {
-        Highscore highscore = new Highscore();
-        highscore.setId(1L);
-        highscore.setHighscore(500L);
 
-        when(highscoreService.save(any())).thenReturn(highscore);
+        when(highscoreService.save(any())).thenReturn(HIGHSCORE_A);
 
         mvc.perform( MockMvcRequestBuilders
                 .post("/highscore")
-                .content(asJsonString(highscore))
+                .content(asJsonString(HIGHSCORE_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -74,16 +71,11 @@ public class HighscoreControllerTest {
     @DisplayName("updating an existing highscore")
     public void updateHighscoreTest() throws Exception
     {
-        Highscore oldHighscore = new Highscore();
-        oldHighscore.setId(1L); oldHighscore.setHighscore(500L);
-        Highscore newHighscore = new Highscore();
-        newHighscore.setId(1L); newHighscore.setHighscore(1000L);
-
-        given(highscoreService.updateById(any(), any())).willReturn(newHighscore);
+        given(highscoreService.updateById(any(), any())).willReturn(HIGHSCORE_B);
 
         mvc.perform(MockMvcRequestBuilders
                 .put("/highscore/{id}", 1L)
-                .content(asJsonString(oldHighscore))
+                .content(asJsonString(HIGHSCORE_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())

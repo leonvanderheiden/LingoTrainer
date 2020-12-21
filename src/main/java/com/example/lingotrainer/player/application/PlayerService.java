@@ -50,7 +50,6 @@ public class PlayerService implements PlayerServiceInterface {
             }
         }
         else {
-            System.out.println("Else blok");
             //Als dat niet het geval is wordt er een nieuwe user aangemaakt met een highscore van 0
             Highscore h = new Highscore(0L);
             player.setHighscore(highscoreService.save(h));

@@ -33,15 +33,16 @@ public class WordControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    Word WORD_A = new Word(15167L, "super");
+    Word WORD_B = new Word(15167L, "toppp");
+
     @Test
     @DisplayName("getting an existing word by id")
     public void getWordByIdTest() throws Exception {
-        Word word = new Word("super");
-        word.setId(15167L);
 
-        given(wordService.findById(word.getId())).willReturn(word);
+        given(wordService.findById(WORD_A.getId())).willReturn(WORD_A);
 
-        mvc.perform(get("/word/" + word.getId())
+        mvc.perform(get("/word/" + WORD_A.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(15167L))
@@ -52,14 +53,11 @@ public class WordControllerTest {
     @Test
     @DisplayName("saving a new word")
     public void saveWordTest() throws Exception {
-        Word word = new Word("super");
-        word.setId(15167L);
-
-        when(wordService.save(any())).thenReturn(word);
+        when(wordService.save(any())).thenReturn(WORD_A);
 
         mvc.perform( MockMvcRequestBuilders
                 .post("/word")
-                .content(asJsonString(word))
+                .content(asJsonString(WORD_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -71,14 +69,11 @@ public class WordControllerTest {
     @DisplayName("updating an existing word")
     public void updateWordTest() throws Exception
     {
-        Word oldWord = new Word("super"); oldWord.setId(15167L);
-        Word newWord = new Word("toppp"); newWord.setId(15167L);
-
-        given(wordService.updateById(any(), any())).willReturn(newWord);
+        given(wordService.updateById(any(), any())).willReturn(WORD_B);
 
         mvc.perform(MockMvcRequestBuilders
                 .put("/word/{id}", 15167L)
-                .content(asJsonString(oldWord))
+                .content(asJsonString(WORD_A))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful())
