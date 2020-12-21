@@ -65,8 +65,8 @@ public class ScoreControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.score").value(75L));
+                .andExpect(jsonPath("$.id").value(2L))
+                .andExpect(jsonPath("$.score").value(50L));
     }
 
     @Test

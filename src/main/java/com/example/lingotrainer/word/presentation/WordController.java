@@ -13,7 +13,7 @@ public class WordController {
 
     //Returned een random woord van een bepaalde lengte in de database
     @GetMapping("/getrandomword/{length}")
-    public Word getRandomWord(@PathVariable Long length) {
+    public Word getRandomWordByLength(@PathVariable Long length) {
         return wordService.getRandomWordByLength(length);
     }
 

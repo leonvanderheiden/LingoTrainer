@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -83,15 +82,5 @@ public class WordServiceTest {
         Boolean expected = wordService.deleteById(1L);
 
         assertEquals(expected, true);
-    }
-
-    @Test
-    @DisplayName("getting a random word by length")
-    void getRandomWordByLengthTest() {
-        when(wordRepository.getAllByIdNotNull()).thenReturn(wordList);
-
-        Word randomWord = wordService.getRandomWordByLength(5L);
-
-        assertThat(wordList.contains(randomWord));
     }
 }

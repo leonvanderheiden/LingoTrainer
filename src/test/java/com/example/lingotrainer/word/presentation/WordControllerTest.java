@@ -3,6 +3,7 @@ package com.example.lingotrainer.word.presentation;
 import com.example.lingotrainer.word.application.WordServiceInterace;
 import com.example.lingotrainer.word.domain.Word;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -17,7 +18,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -35,8 +41,21 @@ public class WordControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    List<Word> wordList = new ArrayList<>();
     Word WORD_A = new Word(15167L, "super");
     Word WORD_B = new Word(15167L, "toppp");
+    Word WORD_C = new Word(2L, "tests");
+    Word WORD_D = new Word(3L, "goeie");
+    Word WORD_E = new Word(4L, "krijg");
+
+    @Before
+    public void init() {
+        wordList.clear();
+        wordList.add(WORD_A);
+        wordList.add(WORD_C);
+        wordList.add(WORD_D);
+        wordList.add(WORD_E);
+    }
 
     @Test
     @DisplayName("getting an existing word by id")
@@ -50,6 +69,18 @@ public class WordControllerTest {
                 .andExpect(jsonPath("$.id").value(15167L))
                 .andExpect(jsonPath("$.word").value("super"))
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("getting a random word by length")
+    public void getRandomWordByLengthTest() {
+        Random random = new Random();
+        Word w = wordList.get(random.nextInt(wordList.size()));
+        when(wordService.getRandomWordByLength(5L)).thenReturn(w);
+
+        Word randomWord = wordService.getRandomWordByLength(5L);
+
+        assertEquals(randomWord, w);
     }
 
     @Test
