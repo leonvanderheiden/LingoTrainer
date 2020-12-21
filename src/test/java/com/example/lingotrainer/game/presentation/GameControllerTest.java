@@ -19,13 +19,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -127,24 +129,20 @@ public class GameControllerTest {
                 .andExpect(jsonPath("$.rounds[1].word.word").value("topper"));
     }
 
-    public static Game createGame(long score, long roundId, String roundType, String word) {
-        Game game = new Game();
-        game.setId(1L);
+    @Test
+    @DisplayName("deleting an existing game by id")
+    public void deleteGameByIdTest() throws Exception {
 
-        Score scoreObj = new Score(1L, score);
-        List<Round> roundList = new ArrayList<>();
+        given(gameService.deleteById(any())).willReturn(true);
 
-        Round round = new Round();
-        round.setId(roundId);
-        round.setRoundType(roundType);
-        Word wordObj = new Word(word);
-        wordObj.setId(1L);
-        round.setWord(wordObj);
-        roundList.add(round);
+        MvcResult result = mvc.perform(MockMvcRequestBuilders
+                .delete("/game/" + GAME_A.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
 
-        game.setScore(scoreObj);
-        game.setRounds(roundList);
-        return game;
+        boolean content = Boolean.parseBoolean(result.getResponse().getContentAsString());
+        assertThat(content == true);
     }
 
     public static String asJsonString(final Object obj) {

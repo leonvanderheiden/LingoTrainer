@@ -20,10 +20,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.modelmapper.ModelMapper;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -109,6 +111,24 @@ public class PlayerControllerTest {
                 .andExpect(jsonPath("$.password").value("pass123"))
                 .andExpect(jsonPath("$.highscore.id").value(2L))
                 .andExpect(jsonPath("$.highscore.highscore").value(900L))*/;
+    }
+
+    @Test
+    @DisplayName("deleting an existing player by id")
+    public void deletePlayerByIdTest() throws Exception {
+
+        Player p = createPlayer(1L, "test", "pass", 1L, 500L);
+
+        given(playerService.deleteById(any())).willReturn(true);
+
+        MvcResult result = mvc.perform(MockMvcRequestBuilders
+                .delete("/player/" + p.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        boolean content = Boolean.parseBoolean(result.getResponse().getContentAsString());
+        assertThat(content == true);
     }
 
     public static Player createPlayer(Long playerId, String name, String password,

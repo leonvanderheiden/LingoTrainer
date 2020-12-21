@@ -12,10 +12,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -84,10 +86,19 @@ public class ScoreControllerTest {
     }
 
     @Test
-    @DisplayName("deleting an existing score")
-    public void deleteScoreTest() throws Exception
+    @DisplayName("deleting an existing score by id")
+    public void deleteScoreByIdTest() throws Exception
     {
+        given(scoreService.deleteById(any())).willReturn(true);
 
+        MvcResult result = mvc.perform(MockMvcRequestBuilders
+                .delete("/score/" + SCORE_A.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        boolean content = Boolean.parseBoolean(result.getResponse().getContentAsString());
+        assertThat(content == true);
     }
 
     public static String asJsonString(final Object obj) {

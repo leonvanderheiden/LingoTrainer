@@ -12,11 +12,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -81,6 +83,22 @@ public class HighscoreControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.highscore").value(1000L));
+    }
+
+    @Test
+    @DisplayName("deleting an existing highscore by id")
+    public void deleteHighscoreByIdTest() throws Exception {
+
+        given(highscoreService.deleteById(any())).willReturn(true);
+
+        MvcResult result = mvc.perform(MockMvcRequestBuilders
+                .delete("/highscore/" + HIGHSCORE_A.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        boolean content = Boolean.parseBoolean(result.getResponse().getContentAsString());
+        assertThat(content == true);
     }
 
     public static String asJsonString(final Object obj) {
