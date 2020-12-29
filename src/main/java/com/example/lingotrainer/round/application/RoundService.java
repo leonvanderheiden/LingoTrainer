@@ -41,40 +41,56 @@ public class RoundService implements RoundServiceInterface {
                 return "true";
             }
             else {
-                feedback = "";
-                for(int i = 0; i < attempt.length(); i++)
-                {
-                    char c = attempt.charAt(i);
-
-                    if (c == word.charAt(i)) {
-                        //Char is op de juiste plek
-                        feedback += c + " (correct)";
-                    }
-                    else if (word.contains(c + "")) {
-                        //Gedeelte van de poging van de user waar de loop tot nu toe doorheen is gegaan
-                        String part = attempt.substring(0, i);
-                        //Kijkt hoeveel keer de char voor komt in alle letters van de poging die de loop tot nu toe is afgegaan
-                        Long n1 = part.chars().filter(num -> num == c).count();
-                        //Kijkt hoeveel keer de char voor komt in het te raden woord
-                        Long n2 = word.chars().filter(num -> num == c).count();
-
-                        //Als de hoeveelheid van de char in het te raden woord hoger is moet de char nog present zijn ergens
-                        if (n2 > n1) {
-                            feedback += c + " (present)";
-                        }
-                        else {
-                            feedback += c + " (absent)";
-                        }
-                    }
-                    else {
-                        //Char is absent
-                        feedback += c + " (absent)";
-                    }
-                    feedback += "\n";
-                }
+                return generateFeedback(attempt, word);
             }
         }
         return feedback;
+    }
+
+    //Deze methode wordt aangeroepen in de getFeedback methode hierboven zodra de poging geldig is en niet overeen komt met het te raden woord
+    public String generateFeedback(String attempt, String word) {
+        String feedback = "";
+        for(int i = 0; i < attempt.length(); i++)
+        {
+            char c = attempt.charAt(i);
+
+            if (c == word.charAt(i)) { //Char is op de juiste plek
+                feedback += c + " (correct)";
+            }
+            else if (word.contains(c + "")) {
+                String x = " (absent)";
+                if (checkDoubleChars(attempt, word, i) == true) {
+                    x = " (present)";
+                }
+                feedback += c + x;
+            }
+            else { //Char is absent
+                feedback += c + " (absent)";
+            }
+            if ((attempt.length() - i) > 1) {
+                feedback += "\n";
+            }
+        }
+        return feedback;
+    }
+
+    //Controleerd of een char meerdere keren in het woord voor komt en stemt de feedback daarop af
+    public Boolean checkDoubleChars(String attempt, String word, int i) {
+        Boolean result = false;
+        char c = attempt.charAt(i);
+
+        //Gedeelte van de poging van de user waar de loop tot nu toe doorheen is gegaan
+        String part = attempt.substring(0, i);
+        //Kijkt hoeveel keer de char voor komt in alle letters van de poging die de loop tot nu toe is afgegaan
+        Long n1 = part.chars().filter(num -> num == c).count();
+        //Kijkt hoeveel keer de char voor komt in het te raden woord
+        Long n2 = word.chars().filter(num -> num == c).count();
+
+        //Als de hoeveelheid van de char in het te raden woord hoger is moet de char nog present zijn ergens
+        if (n2 > n1) {
+            result = true;
+        }
+        return result;
     }
 
     @Override

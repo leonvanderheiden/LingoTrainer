@@ -7,11 +7,15 @@ import com.example.lingotrainer.word.domain.Word;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
@@ -49,6 +53,60 @@ public class RoundServiceTest {
         Round expected = roundService.save(ROUND_A);
 
         assertEquals(expected, ROUND_A);
+    }
+
+    private static Stream<Arguments> provideResultForFeedback() {
+        return Stream.of(
+                Arguments.of("zagen", "dooft", "z (absent)\na (absent)\ng (absent)\ne (absent)\nn (absent)"),
+                Arguments.of("dagen", "dooft", "d (correct)\na (absent)\ng (absent)\ne (absent)\nn (absent)"),
+                Arguments.of("rooft", "dooft", "r (absent)\no (correct)\no (correct)\nf (correct)\nt (correct)"),
+
+                //Present check
+                Arguments.of("daten", "dooft", "d (correct)\na (absent)\nt (present)\ne (absent)\nn (absent)"),
+                Arguments.of("oplos", "dooft", "o (present)\np (absent)\nl (absent)\no (present)\ns (absent)"),
+                Arguments.of("obool", "dooft", "o (present)\nb (absent)\no (correct)\no (absent)\nl (absent)"),
+                Arguments.of("aarde", "ander", "a (correct)\na (absent)\nr (present)\nd (present)\ne (present)"),
+                Arguments.of("ander", "aarde", "a (correct)\nn (absent)\nd (present)\ne (present)\nr (present)")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideResultForFeedback")
+    void generateFeedbackTest(String attempt, String word, String expected) {
+        String result = roundService.generateFeedback(attempt, word);
+
+        assertEquals(expected, result);
+    }
+
+    private static Stream<Arguments> provideResultForDoubleChar() {
+        return Stream.of(
+                //1 letter controle controle
+                Arguments.of("maart", "ander", 1, true),
+                Arguments.of("maart", "ander", 2, false),
+                Arguments.of("ander", "maart", 0, true),
+
+                //2 letter controle met GEEN letter op dezelfde positie
+                Arguments.of("ordeel", "eerste", 3, true),
+                Arguments.of("ordeel", "eerste", 4, true),
+                Arguments.of("eerste", "ordeel", 0, true),
+                Arguments.of("eerste", "ordeel", 1, true),
+                Arguments.of("eerste", "ordeel", 5, false),
+
+
+                //2 letter controle met een letter op dezelfde positie
+                Arguments.of("boord", "donor", 1, true),
+                Arguments.of("boord", "donor", 2, true),
+                Arguments.of("donor", "boord", 1, true),
+                Arguments.of("donor", "boord", 3, true)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideResultForDoubleChar")
+    void checkDoubleCharsTest(String attempt, String word, int charNum, boolean expected) {
+        boolean result = roundService.checkDoubleChars(attempt, word, charNum);
+
+        assertEquals(expected, result);
     }
 
     @Test

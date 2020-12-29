@@ -2,6 +2,7 @@ package com.example.lingotrainer.score.application;
 
 import com.example.lingotrainer.score.data.ScoreRepository;
 import com.example.lingotrainer.score.domain.Score;
+import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
