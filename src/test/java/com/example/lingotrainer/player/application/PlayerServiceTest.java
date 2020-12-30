@@ -2,11 +2,10 @@ package com.example.lingotrainer.player.application;
 
 import com.example.lingotrainer.game.domain.Game;
 import com.example.lingotrainer.highscore.application.HighscoreService;
-import com.example.lingotrainer.highscore.data.HighscoreRepository;
 import com.example.lingotrainer.highscore.domain.Highscore;
-import com.example.lingotrainer.player.application.PlayerService;
 import com.example.lingotrainer.player.data.PlayerRepository;
 import com.example.lingotrainer.player.domain.Player;
+import com.example.lingotrainer.player.exceptions.PlayerNotFoundException;
 import com.example.lingotrainer.score.domain.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,11 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class PlayerServiceTest {
@@ -79,6 +78,18 @@ public class PlayerServiceTest {
         Player expected = playerService.findByName(PLAYER_A.getName());
 
         assertEquals(expected, PLAYER_A);
+    }
+
+    @Test()
+    @DisplayName("get player exception when player not found")
+    void findByIdExceptionTest() {
+        Exception exception = assertThrows(PlayerNotFoundException.class, () -> {
+            playerRepository.findById(2L).orElseThrow(() -> new PlayerNotFoundException(2L));
+        });
+
+        String expected = "Player not found with id: 2";
+
+        assertEquals(expected, exception.getMessage());
     }
 
     @Test

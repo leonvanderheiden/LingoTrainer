@@ -1,8 +1,8 @@
 package com.example.lingotrainer.round.application;
 
-import com.example.lingotrainer.round.application.RoundService;
 import com.example.lingotrainer.round.data.RoundRepository;
 import com.example.lingotrainer.round.domain.Round;
+import com.example.lingotrainer.round.exceptions.RoundNotFoundException;
 import com.example.lingotrainer.word.domain.Word;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +18,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -43,6 +44,18 @@ public class RoundServiceTest {
         Round expected = roundService.findById(ROUND_A.getId());
 
         assertEquals(expected, ROUND_A);
+    }
+
+    @Test()
+    @DisplayName("get round exception when round not found")
+    void findByIdExceptionTest() {
+        Exception exception = assertThrows(RoundNotFoundException.class, () -> {
+            roundRepository.findById(2L).orElseThrow(() -> new RoundNotFoundException(2L));
+        });
+
+        String expected = "Round not found with id: 2";
+
+        assertEquals(expected, exception.getMessage());
     }
 
     @Test

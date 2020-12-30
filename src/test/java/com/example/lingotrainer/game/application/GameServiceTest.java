@@ -2,6 +2,7 @@ package com.example.lingotrainer.game.application;
 
 import com.example.lingotrainer.game.data.GameRepository;
 import com.example.lingotrainer.game.domain.Game;
+import com.example.lingotrainer.game.exceptions.GameNotFoundException;
 import com.example.lingotrainer.highscore.domain.Highscore;
 import com.example.lingotrainer.player.application.PlayerService;
 import com.example.lingotrainer.player.domain.Player;
@@ -21,9 +22,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceTest {
@@ -69,6 +71,18 @@ public class GameServiceTest {
         Game expected = gameService.findById(GAME_A.getId());
 
         assertEquals(expected, GAME_A);
+    }
+
+    @Test()
+    @DisplayName("get game exception when game not found")
+    void findByIdExceptionTest() {
+        Exception exception = assertThrows(GameNotFoundException.class, () -> {
+            gameRepository.findById(2L).orElseThrow(() -> new GameNotFoundException(2L));
+        });
+
+        String expected = "Game not found with id: 2";
+
+        assertEquals(expected, exception.getMessage());
     }
 
     @Test

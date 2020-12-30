@@ -1,7 +1,9 @@
 package com.example.lingotrainer.word.application;
 
+import com.example.lingotrainer.game.exceptions.GameNotFoundException;
 import com.example.lingotrainer.word.data.WordRepository;
 import com.example.lingotrainer.word.domain.Word;
+import com.example.lingotrainer.word.exceptions.WordNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -51,6 +54,18 @@ public class WordServiceTest {
         Word expected = wordService.findById(WORD_A.getId());
 
         assertEquals(expected, WORD_A);
+    }
+
+    @Test()
+    @DisplayName("get word exception when word not found")
+    void findByIdExceptionTest() {
+        Exception exception = assertThrows(WordNotFoundException.class, () -> {
+            wordRepository.findById(2L).orElseThrow(() -> new WordNotFoundException(2L));
+        });
+
+        String expected = "Word not found with id: 2";
+
+        assertEquals(expected, exception.getMessage());
     }
 
     @Test

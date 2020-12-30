@@ -39,6 +39,18 @@ public class ScoreServiceTest {
         assertEquals(expected, SCORE_A);
     }
 
+    @Test()
+    @DisplayName("get score exception when score not found")
+    void findByIdExceptionTest() {
+        Exception exception = assertThrows(ScoreNotFoundException.class, () -> {
+            scoreRepository.findById(2L).orElseThrow(() -> new ScoreNotFoundException(2L));
+        });
+
+        String expected = "Score not found with id: 2";
+
+        assertEquals(expected, exception.getMessage());
+    }
+
     @Test
     @DisplayName("saving a new score")
     void saveTest() {

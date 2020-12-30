@@ -2,6 +2,7 @@ package com.example.lingotrainer.highscore.application;
 
 import com.example.lingotrainer.highscore.data.HighscoreRepository;
 import com.example.lingotrainer.highscore.domain.Highscore;
+import com.example.lingotrainer.highscore.exceptions.HighscoreNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +37,18 @@ public class HighscoreServiceTest {
         Highscore expected = highscoreService.findById(HIGHSCORE_A.getId());
 
         assertEquals(expected, HIGHSCORE_A);
+    }
+
+    @Test()
+    @DisplayName("get highscore exception when highscore not found")
+    void findByIdExceptionTest() {
+        Exception exception = assertThrows(HighscoreNotFoundException.class, () -> {
+            highscoreRepository.findById(2L).orElseThrow(() -> new HighscoreNotFoundException(2L));
+        });
+
+        String expected = "Highscore not found with id: 2";
+
+        assertEquals(expected, exception.getMessage());
     }
 
     @Test

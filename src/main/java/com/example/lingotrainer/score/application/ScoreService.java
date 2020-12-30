@@ -26,7 +26,6 @@ public class ScoreService implements ScoreServiceInterface {
 
     @Override
     public Score save(Score score) {
-        System.out.println(score);
         return scoreRepository.save(score);
     }
 

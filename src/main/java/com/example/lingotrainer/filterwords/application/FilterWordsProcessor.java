@@ -27,11 +27,11 @@ public class FilterWordsProcessor {
 
     public FilterWordsProcessor() { }
 
-    public FilterWordsProcessor(WordReader wordReader, WordFilter wordFilter, WordWriter wordWriter) {
+    /*public FilterWordsProcessor(WordReader wordReader, WordFilter wordFilter, WordWriter wordWriter) {
         this.wordReader = wordReader;
         this.wordFilter = wordFilter;
         this.wordWriter = wordWriter;
-    }
+    }*/
 
     public void processWords() throws IOException {
         List<String> allWords = wordReader.getWordsFromFile();
