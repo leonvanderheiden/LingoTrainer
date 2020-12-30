@@ -32,19 +32,9 @@ public class Player {
 
     public Player() {}
 
-    public Player(String name) {
-        this.name = name;
-    }
-
     public Player(Long id, Highscore highscore, String name, String password) {
         this.id = id;
         this.highscore = highscore;
-        this.name = name;
-        this.password = password;
-    }
-
-    public Player(Long id, String name, String password) {
-        this.id = id;
         this.name = name;
         this.password = password;
     }
