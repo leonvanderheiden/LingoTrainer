@@ -51,6 +51,7 @@ public class HighscoreControllerTest {
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.highscore").value(500L))
                 .andDo(MockMvcResultHandlers.print());
+
     }
 
     @Test
@@ -75,7 +76,7 @@ public class HighscoreControllerTest {
     {
         given(highscoreService.updateById(any(), any())).willReturn(HIGHSCORE_B);
 
-        mvc.perform(MockMvcRequestBuilders
+        var x = mvc.perform(MockMvcRequestBuilders
                 .put("/highscore/{id}", 1L)
                 .content(asJsonString(HIGHSCORE_A))
                 .contentType(MediaType.APPLICATION_JSON)

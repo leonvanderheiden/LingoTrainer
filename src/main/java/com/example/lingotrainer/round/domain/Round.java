@@ -54,12 +54,4 @@ public class Round {
     public Word getWord() { return word; }
 
     public void setWord(Word word) { this.word = word; }
-
-    @Override
-    public String toString() {
-        return "Round{" +
-                "id=" + id +
-                ", roundType='" + roundType + '\'' +
-                '}';
-    }
 }

@@ -1,9 +1,8 @@
 package com.example.lingotrainer.word.application;
 
-import com.example.lingotrainer.round.exceptions.RoundNotFoundException;
-import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
-import com.example.lingotrainer.word.domain.Word;
 import com.example.lingotrainer.word.data.WordRepository;
+import com.example.lingotrainer.word.domain.Word;
+import com.example.lingotrainer.word.exceptions.WordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +21,12 @@ public class WordService implements WordServiceInterace {
 
     @Override
     public Word findById(long wordid) {
-        return wordRepository.findById(wordid).orElseThrow(() -> new RoundNotFoundException(wordid));
+        return wordRepository.findById(wordid).orElseThrow(() -> new WordNotFoundException(wordid));
     }
 
     @Override
     public Word updateById(Long wordid, Word word) {
-        Word w = wordRepository.findById(wordid).orElseThrow(() -> new RoundNotFoundException(wordid));
+        Word w = wordRepository.findById(wordid).orElseThrow(() -> new WordNotFoundException(wordid));
 
         w.setWord(word.getWord());
 
@@ -36,7 +35,7 @@ public class WordService implements WordServiceInterace {
 
     @Override
     public Boolean deleteById(Long wordid) {
-        Word w = wordRepository.findById(wordid).orElseThrow(() -> new ScoreNotFoundException(wordid));
+        Word w = wordRepository.findById(wordid).orElseThrow(() -> new WordNotFoundException(wordid));
         if (w != null) {
             wordRepository.deleteById(w.getId());
         }

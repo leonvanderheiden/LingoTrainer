@@ -1,6 +1,7 @@
 package com.example.lingotrainer.word.application;
 
 import com.example.lingotrainer.game.exceptions.GameNotFoundException;
+import com.example.lingotrainer.score.exceptions.ScoreNotFoundException;
 import com.example.lingotrainer.word.data.WordRepository;
 import com.example.lingotrainer.word.domain.Word;
 import com.example.lingotrainer.word.exceptions.WordNotFoundException;
@@ -15,7 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
@@ -53,6 +56,7 @@ public class WordServiceTest {
 
         Word expected = wordService.findById(WORD_A.getId());
 
+        assertThat(wordRepository.findById(WORD_A.getId()).orElseThrow(() -> new WordNotFoundException(WORD_A.getId()))).isNotNull();
         assertEquals(expected, WORD_A);
     }
 
@@ -86,6 +90,7 @@ public class WordServiceTest {
 
         Word expected = wordService.updateById(1L, WORD_A);
 
+        assertThat(wordRepository.findById(WORD_A.getId()).orElseThrow(() -> new ScoreNotFoundException(WORD_A.getId()))).isNotNull();
         assertEquals(expected, WORD_B);
     }
 
@@ -96,6 +101,17 @@ public class WordServiceTest {
 
         Boolean expected = wordService.deleteById(1L);
 
+        assertThat(wordRepository.findById(WORD_A.getId()).orElseThrow(() -> new ScoreNotFoundException(WORD_A.getId()))).isNotNull();
         assertEquals(expected, true);
+    }
+
+    @Test
+    @DisplayName("getting a random word by length")
+    public void getRandomWordByLengthTest() {
+        when(wordRepository.getAllByIdNotNull()).thenReturn(wordList);
+
+        Word randomWord = wordService.getRandomWordByLength(5L);
+
+        assertThat(randomWord).isNotNull();
     }
 }
