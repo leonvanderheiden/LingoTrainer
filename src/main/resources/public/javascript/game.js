@@ -79,7 +79,7 @@ async function enterWord(failed) {
             var letters = feedback.split('\n');
             var totalScoreAddition = 0;
 
-            for (var i = 0; i < (letters.length - 1); i++) {
+            for (var i = 0; i < letters.length; i++) {
                 document.getElementById("attempt_" + attempt + "_" + i).innerHTML = letters[i].charAt(0);
                 if (letters[i].includes("(correct)")) {
                     givenLetters += letters[i].charAt(0);

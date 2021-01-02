@@ -22,9 +22,7 @@ public class Word {
     @OneToMany(mappedBy = "word")
     private List<Round> rounds;
 
-    public Word() {
-
-    }
+    public Word() { }
 
     public Word(String word) {
         this.word = word;

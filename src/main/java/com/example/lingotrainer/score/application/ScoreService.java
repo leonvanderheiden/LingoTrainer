@@ -15,9 +15,7 @@ public class ScoreService implements ScoreServiceInterface {
         this.scoreRepository = scoreRepository;
     }
 
-    public ScoreService() {
-
-    }
+    public ScoreService() { }
 
     @Override
     public Score findById(long scoreid) {
