@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<style>
+    input {
+        margin-right: 20px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+    input[type=text], input[type=password] {
+        width: 200px;
+    }
+    input[type=button] {
+        width: 207px;
+    }
+</style>
+<body>
+
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <input type="button" value="Login" onclick="loginFunction()" ><br>
+    <label>* creates automaticly an account when the system doesn't recognize the username</label>
+
+<!-- Scripts -->
+<script src="javascript/users.js"></script>
+
+</body>
+</html>

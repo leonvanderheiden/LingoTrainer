@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<style>
+    label[name="area"] {
+        height: 55px;
+        width: 40px;
+        font-size: 40px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        display: inline-block;
+        text-align:center;
+    }
+    #attributes {
+        position: center;
+    }
+</style>
+<body onload="loadGame()">
+
+<div id="attributes">
+    <div id="gameArea"></div>
+    <label id="score">Score: 0</label><br>
+    <label id="highscore">Highscore: </label><br>
+    <input type="text" id="word">
+    <button onclick="enterWord()" id="enter">Enter</button>
+</div>
+
+<script>
+    var word = document.getElementById("word");
+    word.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("enter").click();
+        }
+    });
+</script>
+
+<!-- Scripts -->
+<script src="javascript/game.js"></script>
+<script src="javascript/menu.js"></script>
+
+</body>
+</html>

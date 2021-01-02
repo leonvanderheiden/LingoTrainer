@@ -9,5 +9,4 @@ public class LingotrainerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LingotrainerApplication.class, args);
 	}
-
 }
