@@ -1,0 +1,12 @@
+JavaScript fetch:
+https://dmitripavlutin.com/javascript-fetch-async-await/
+
+Exception:
+https://www.baeldung.com/spring-response-status-exception
+
+Test bronnen:
+https://www.baeldung.com/spring-boot-testing
+https://howtodoinjava.com/spring-boot2/testing/spring-boot-mockmvc-example/
+
+Codecov:
+https://vorba.ch/2015/java-gradle-travis-jacoco-codecov.html
