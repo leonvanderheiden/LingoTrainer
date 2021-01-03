@@ -24,7 +24,7 @@ public class FileWordReaderTest {
     @InjectMocks
     private FileWordReader fileWordReader;
 
-    @Test
+    /*@Test
     @DisplayName("reading words from file")
     void getWordsFromFileTest() throws IOException {
         File file = new File("C:\\Users\\leonv\\Documents\\JavaProjects\\LingoTrainer\\src\\main\\resources\\basiswoorden-gekeurd.txt");
@@ -33,5 +33,5 @@ public class FileWordReaderTest {
         List<String> words = fileWordReader.getWordsFromFile();
 
         assertThat(words).isNotNull();
-    }
+    }*/
 }
