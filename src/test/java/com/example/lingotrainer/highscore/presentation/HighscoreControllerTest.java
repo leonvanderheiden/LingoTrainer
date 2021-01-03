@@ -76,7 +76,7 @@ public class HighscoreControllerTest {
     {
         given(highscoreService.updateById(any(), any())).willReturn(HIGHSCORE_B);
 
-        var x = mvc.perform(MockMvcRequestBuilders
+        ResultActions x = mvc.perform(MockMvcRequestBuilders
                 .put("/highscore/{id}", 1L)
                 .content(asJsonString(HIGHSCORE_A))
                 .contentType(MediaType.APPLICATION_JSON)
