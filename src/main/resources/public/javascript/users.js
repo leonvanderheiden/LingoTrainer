@@ -2,7 +2,6 @@ function loginFunction() {
     var player = new Object();
     player.name = document.getElementById("username").value;
     player.password = document.getElementById("password").value;
-
     var playerJsonString = JSON.stringify(player);
 
     fetch("/login", {
