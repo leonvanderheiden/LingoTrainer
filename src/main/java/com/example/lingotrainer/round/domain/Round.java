@@ -1,15 +1,9 @@
 package com.example.lingotrainer.round.domain;
 
 
-import com.example.lingotrainer.game.domain.Game;
-import com.example.lingotrainer.player.domain.Player;
-import com.example.lingotrainer.score.domain.Score;
 import com.example.lingotrainer.word.domain.Word;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.GenerationType;
 import javax.persistence.*;
 
 @Entity
